@@ -39,3 +39,39 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/src/generated/prisma
+
+# Environment secrets
+.env
+.env.local
+.env.*
+!.env.example
+
+# Build and local backups
+.next/
+node_modules/
+project-backups/
+*-backup-*/
+
+# AI/editor helper folders
+.agents/
+.claude/
+.windsurf/
+skills-lock.json
+
+# Local SQLite databases
+dev.db
+prisma/dev.db
+prisma/dev.db-journal
+*.db-journal
+
+# Temporary homepage copies
+src/app/page-backup.txt
+src/app/page-before-values-update.tsx
+src/app/page-broken-homepage.txt
+src/app/page-starter-backup.tsx
+
+# Local backups
+project-backups/
+*-backup-*/

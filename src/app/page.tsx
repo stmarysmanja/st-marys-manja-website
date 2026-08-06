@@ -1,69 +1,357 @@
-import Image from "next/image";
+import Link from "next/link";
+import HomeHero from "@/components/home/HomeHero";
+import PublicHeader from "@/components/layout/PublicHeader";
+import PublicFooter from "@/components/layout/PublicFooter";
 
-export default function Home() {
+const heroSlides = [
+  {
+    id: 1,
+    imageUrl: "/uploads/hero-initial/01-welcome-tour.jpg",
+    altText: "St. Mary's students during an educational tour",
+    mediaType: "image",
+    title: "Welcome to St. Mary's",
+    subtitle: "Learning, discipline and discovery beyond the classroom.",
+    buttonText: "Apply for Admission",
+    buttonLink: "/admissions",
+  },
+  {
+    id: 2,
+    imageUrl: "/uploads/hero-initial/02-tea-factory.jpg",
+    altText: "Students visiting Igara Tea Factory",
+    mediaType: "image",
+    title: "Learning Beyond the Classroom",
+    subtitle:
+      "Educational tours connect classroom knowledge with the world of work.",
+    buttonText: "Explore Academics",
+    buttonLink: "/academics",
+  },
+  {
+    id: 3,
+    imageUrl: "/uploads/hero-initial/03-fieldwork.jpg",
+    altText: "Students participating in fieldwork",
+    mediaType: "image",
+    title: "Experiential Learning",
+    subtitle:
+      "Our learners investigate, observe and apply knowledge in real environments.",
+    buttonText: "View Academic Life",
+    buttonLink: "/academics#co-curricular",
+  },
+  {
+    id: 4,
+    imageUrl: "/uploads/hero-initial/04-mdd-culture.jpg",
+    altText: "Students participating in music dance and drama",
+    mediaType: "image",
+    title: "Culture, Creativity and Talent",
+    subtitle:
+      "Music, dance and drama help learners discover confidence and identity.",
+    buttonText: "Discover Student Life",
+    buttonLink: "/academics#co-curricular",
+  },
+  {
+    id: 5,
+    imageUrl: "/uploads/hero-initial/05-kazinga-channel.jpg",
+    altText: "Students during a geography field study",
+    mediaType: "image",
+    title: "Geography in Action",
+    subtitle:
+      "Field studies strengthen research, teamwork and environmental awareness.",
+    buttonText: "Explore Academics",
+    buttonLink: "/academics",
+  },
+  {
+    id: 6,
+    imageUrl: "/uploads/hero-initial/06-old-students.jpg",
+    altText: "Members of the old students team",
+    mediaType: "image",
+    title: "A Strong School Community",
+    subtitle:
+      "Past and present learners remain connected through friendship and service.",
+    buttonText: "About Our School",
+    buttonLink: "/about",
+  },
+];
+
+const values = [
+  {
+    label: "Our Mission",
+    icon: "◎",
+    text: "To produce practical, responsible citizens with high academic standards and moral values.",
+    featured: false,
+  },
+  {
+    label: "Our Motto",
+    icon: "📖",
+    text: "We Learn by Doing",
+    featured: true,
+  },
+  {
+    label: "Our Vision",
+    icon: "◉",
+    text: "To be a Centre of Excellence all Round Achievers.",
+    featured: false,
+  },
+];
+
+const academicLife = [
+  {
+    title: "Educational Tours",
+    text: "Students connect classroom learning with real industries and communities.",
+    image: "/uploads/hero-initial/01-welcome-tour.jpg",
+  },
+  {
+    title: "Tea Factory Study",
+    text: "Practical exposure helps learners understand production and agriculture.",
+    image: "/uploads/hero-initial/02-tea-factory.jpg",
+  },
+  {
+    title: "Fieldwork",
+    text: "Learners collect information, observe environments and build research skills.",
+    image: "/uploads/hero-initial/03-fieldwork.jpg",
+  },
+  {
+    title: "Music, Dance and Drama",
+    text: "Creative activities develop confidence, teamwork and cultural identity.",
+    image: "/uploads/hero-initial/04-mdd-culture.jpg",
+  },
+  {
+    title: "Geography Studies",
+    text: "Field studies strengthen environmental awareness and practical knowledge.",
+    image: "/uploads/hero-initial/05-kazinga-channel.jpg",
+  },
+  {
+    title: "Old Students Community",
+    text: "Our alumni remain connected to the school through friendship and service.",
+    image: "/uploads/hero-initial/06-old-students.jpg",
+  },
+];
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      <PublicHeader
+        schoolName="St. Mary's Secondary School – Manja"
+        phone="+256 700 240 640"
+        email="ashirafkyu@gmail.com"
+      />
+
+      <main>
+        <HomeHero
+          slides={heroSlides}
+          heroTitle="St. Mary's Secondary School"
+          heroSubtitle="Manja | Excellence & Virtue"
+          centreCode="ST MARYS MANJA"
+          admissionsText="Apply for Admission"
+          admissionsLink="/admissions"
+          whatsappNumber="256700240640"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+
+        <section className="relative overflow-hidden bg-slate-50 pb-20">
+          <div className="bg-gradient-to-br from-[#061d53] via-[#08296f] to-[#2453d4] px-4 pb-40 pt-20 text-center text-white">
+            <p className="text-sm font-black uppercase tracking-[0.34em] text-blue-200">
+              Our Values
+            </p>
+
+            <h2
+              className="mt-6 text-4xl font-bold md:text-6xl"
+              style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+              Our Mission, Motto &amp; Vision
+            </h2>
+
+            <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-blue-100">
+              The pillars that guide us in nurturing disciplined, responsible
+              and successful citizens.
+            </p>
+          </div>
+
+          <div className="relative z-10 mx-auto -mt-28 grid max-w-7xl gap-7 px-4 md:grid-cols-3">
+            {values.map((value) => (
+              <article
+                key={value.label}
+                className={`flex min-h-[390px] flex-col items-center rounded-[30px] border p-8 text-center shadow-2xl transition duration-500 hover:-translate-y-3 ${
+                  value.featured
+                    ? "border-blue-300 bg-gradient-to-br from-[#2453d4] to-[#08296f] text-white"
+                    : "border-blue-100 bg-white text-slate-800"
+                }`}
+              >
+                <div
+                  className={`flex h-24 w-24 items-center justify-center rounded-full text-4xl ${
+                    value.featured
+                      ? "bg-white text-[#08296f]"
+                      : "bg-blue-50 text-[#2453d4]"
+                  }`}
+                >
+                  {value.icon}
+                </div>
+
+                <p
+                  className={`mt-8 text-sm font-black uppercase tracking-[0.28em] ${
+                    value.featured ? "text-blue-100" : "text-[#2453d4]"
+                  }`}
+                >
+                  {value.label}
+                </p>
+
+                <div
+                  className={`mt-5 h-1 w-16 rounded-full ${
+                    value.featured ? "bg-white" : "bg-[#2453d4]"
+                  }`}
+                />
+
+                <p
+                  className={`mt-8 flex flex-1 items-center font-bold leading-relaxed ${
+                    value.featured
+                      ? "text-4xl italic"
+                      : "text-xl md:text-2xl"
+                  }`}
+                  style={{
+                    fontFamily: value.featured
+                      ? 'Georgia, "Times New Roman", serif'
+                      : "Arial, sans-serif",
+                  }}
+                >
+                  {value.featured ? `“${value.text}”` : value.text}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="bg-white py-20">
+          <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 lg:grid-cols-2">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.25em] text-[#2453d4]">
+                Welcome to St. Mary&apos;s
+              </p>
+
+              <h2
+                className="mt-4 text-4xl font-bold text-[#08296f] md:text-5xl"
+                style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+              >
+                Learning for Excellence and Responsible Citizenship
+              </h2>
+
+              <p className="mt-6 text-lg leading-8 text-slate-600">
+                St. Mary&apos;s Secondary School – Manja is committed to
+                practical education, discipline, academic excellence and the
+                development of every learner&apos;s talents.
+              </p>
+
+              <Link
+                href="/about"
+                className="mt-8 inline-flex rounded-xl bg-[#2453d4] px-7 py-4 font-bold text-white transition hover:-translate-y-1 hover:bg-[#08296f]"
+              >
+                Discover Our School →
+              </Link>
+            </div>
+
+            <img
+              src="/uploads/hero-initial/03-fieldwork.jpg"
+              alt="Students learning during fieldwork"
+              className="h-[480px] w-full rounded-[32px] object-cover shadow-2xl"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          </div>
+        </section>
+
+        <section className="bg-slate-50 py-20">
+          <div className="mx-auto max-w-7xl px-4">
+            <div className="text-center">
+              <p className="text-sm font-black uppercase tracking-[0.25em] text-[#2453d4]">
+                Learning in Action
+              </p>
+
+              <h2
+                className="mt-4 text-4xl font-bold text-[#08296f] md:text-5xl"
+                style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+              >
+                Academic and Student Life
+              </h2>
+
+              <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+                Our students learn through classroom teaching, field studies,
+                educational tours, culture and community participation.
+              </p>
+            </div>
+
+            <div className="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+              {academicLife.map((item) => (
+                <article
+                  key={item.title}
+                  className="group overflow-hidden rounded-3xl bg-white shadow-lg transition duration-500 hover:-translate-y-2 hover:shadow-2xl"
+                >
+                  <div className="h-64 overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                    />
+                  </div>
+
+                  <div className="p-7">
+                    <h3 className="text-2xl font-bold text-[#08296f]">
+                      {item.title}
+                    </h3>
+
+                    <p className="mt-3 leading-7 text-slate-600">
+                      {item.text}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-10 text-center">
+              <Link
+                href="/academics"
+                className="inline-flex rounded-xl bg-[#2453d4] px-7 py-4 font-bold text-white transition hover:bg-[#08296f]"
+              >
+                Explore Our Academics
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-gradient-to-r from-[#08296f] to-[#2453d4] px-4 py-20 text-center text-white">
+          <p className="text-sm font-black uppercase tracking-[0.25em] text-blue-200">
+            Admissions Open
+          </p>
+
+          <h2
+            className="mx-auto mt-5 max-w-4xl text-4xl font-bold md:text-5xl"
+            style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
           >
-            Documentation
-          </a>
-        </div>
+            Join St. Mary&apos;s Secondary School – Manja
+          </h2>
+
+          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-blue-100">
+            Begin your journey in a disciplined, supportive and academically
+            focused school community.
+          </p>
+
+          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+            <Link
+              href="/admissions"
+              className="rounded-xl bg-white px-8 py-4 font-extrabold text-[#08296f] transition hover:-translate-y-1 hover:bg-blue-100"
+            >
+              Apply Now
+            </Link>
+
+            <Link
+              href="/contact"
+              className="rounded-xl border border-white/40 bg-white/10 px-8 py-4 font-extrabold text-white transition hover:bg-white hover:text-[#08296f]"
+            >
+              Contact the School
+            </Link>
+          </div>
+        </section>
       </main>
-    </div>
+
+      <PublicFooter
+        schoolName="St. Mary's Secondary School – Manja"
+        location="Manja, Uganda"
+        phone="+256 700 240 640"
+        email="ashirafkyu@gmail.com"
+      />
+    </>
   );
 }
