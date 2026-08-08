@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { prisma } from "@/lib/prisma";
 import HomeHero from "@/components/home/HomeHero";
 import PublicHeader from "@/components/layout/PublicHeader";
 import PublicFooter from "@/components/layout/PublicFooter";
@@ -74,19 +75,19 @@ const heroSlides = [
 const values = [
   {
     label: "Our Mission",
-    icon: "◎",
+    icon: "â—Ž",
     text: "To produce practical, responsible citizens with high academic standards and moral values.",
     featured: false,
   },
   {
     label: "Our Motto",
-    icon: "📖",
+    icon: "ðŸ“–",
     text: "We Learn by Doing",
     featured: true,
   },
   {
     label: "Our Vision",
-    icon: "◉",
+    icon: "â—‰",
     text: "To be a Centre of Excellence all Round Achievers.",
     featured: false,
   },
@@ -125,12 +126,21 @@ const academicLife = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const contact = await prisma.contactSettings.findUnique({
+    where: { id: 1 },
+  });
+
+  const phones = contact
+    ? (JSON.parse(contact.phones) as string[])
+    : [];
+
+  const phone = phones[0] || "+256 700 240 640";
   return (
     <>
       <PublicHeader
-        schoolName="St. Mary's Secondary School – Manja"
-        phone="+256 700 240 640"
+        schoolName="St. Mary's Secondary School â€“ Manja"
+        phone={phone}
         email="ashirafkyu@gmail.com"
       />
 
@@ -210,7 +220,7 @@ export default function HomePage() {
                       : "Arial, sans-serif",
                   }}
                 >
-                  {value.featured ? `“${value.text}”` : value.text}
+                  {value.featured ? `â€œ${value.text}â€` : value.text}
                 </p>
               </article>
             ))}
@@ -232,7 +242,7 @@ export default function HomePage() {
               </h2>
 
               <p className="mt-6 text-lg leading-8 text-slate-600">
-                St. Mary&apos;s Secondary School – Manja is committed to
+                St. Mary&apos;s Secondary School â€“ Manja is committed to
                 practical education, discipline, academic excellence and the
                 development of every learner&apos;s talents.
               </p>
@@ -241,7 +251,7 @@ export default function HomePage() {
                 href="/about"
                 className="mt-8 inline-flex rounded-xl bg-[#2453d4] px-7 py-4 font-bold text-white transition hover:-translate-y-1 hover:bg-[#08296f]"
               >
-                Discover Our School →
+                Discover Our School â†’
               </Link>
             </div>
 
@@ -320,7 +330,7 @@ export default function HomePage() {
             className="mx-auto mt-5 max-w-4xl text-4xl font-bold md:text-5xl"
             style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
           >
-            Join St. Mary&apos;s Secondary School – Manja
+            Join St. Mary&apos;s Secondary School â€“ Manja
           </h2>
 
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-blue-100">
@@ -347,9 +357,9 @@ export default function HomePage() {
       </main>
 
       <PublicFooter
-        schoolName="St. Mary's Secondary School – Manja"
+        schoolName="St. Mary's Secondary School â€“ Manja"
         location="Manja, Uganda"
-        phone="+256 700 240 640"
+        phone={phone}
         email="ashirafkyu@gmail.com"
       />
     </>
