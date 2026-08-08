@@ -4,6 +4,8 @@ import HomeHero from "@/components/home/HomeHero";
 import PublicHeader from "@/components/layout/PublicHeader";
 import PublicFooter from "@/components/layout/PublicFooter";
 
+export const dynamic = "force-dynamic";
+
 const heroSlides = [
   {
     id: 1,
@@ -75,19 +77,19 @@ const heroSlides = [
 const values = [
   {
     label: "Our Mission",
-    icon: "â—Ž",
+    icon: "Ã¢â€”Å½",
     text: "To produce practical, responsible citizens with high academic standards and moral values.",
     featured: false,
   },
   {
     label: "Our Motto",
-    icon: "ðŸ“–",
+    icon: "Ã°Å¸â€œâ€“",
     text: "We Learn by Doing",
     featured: true,
   },
   {
     label: "Our Vision",
-    icon: "â—‰",
+    icon: "Ã¢â€”â€°",
     text: "To be a Centre of Excellence all Round Achievers.",
     featured: false,
   },
@@ -139,7 +141,7 @@ export default async function HomePage() {
   return (
     <>
       <PublicHeader
-        schoolName="St. Mary's Secondary School â€“ Manja"
+        schoolName="St. Mary's Secondary School Ã¢â‚¬â€œ Manja"
         phone={phone}
         email="ashirafkyu@gmail.com"
       />
@@ -220,7 +222,7 @@ export default async function HomePage() {
                       : "Arial, sans-serif",
                   }}
                 >
-                  {value.featured ? `â€œ${value.text}â€` : value.text}
+                  {value.featured ? `Ã¢â‚¬Å“${value.text}Ã¢â‚¬Â` : value.text}
                 </p>
               </article>
             ))}
@@ -242,7 +244,7 @@ export default async function HomePage() {
               </h2>
 
               <p className="mt-6 text-lg leading-8 text-slate-600">
-                St. Mary&apos;s Secondary School â€“ Manja is committed to
+                St. Mary&apos;s Secondary School Ã¢â‚¬â€œ Manja is committed to
                 practical education, discipline, academic excellence and the
                 development of every learner&apos;s talents.
               </p>
@@ -251,7 +253,7 @@ export default async function HomePage() {
                 href="/about"
                 className="mt-8 inline-flex rounded-xl bg-[#2453d4] px-7 py-4 font-bold text-white transition hover:-translate-y-1 hover:bg-[#08296f]"
               >
-                Discover Our School â†’
+                Discover Our School Ã¢â€ â€™
               </Link>
             </div>
 
@@ -330,7 +332,7 @@ export default async function HomePage() {
             className="mx-auto mt-5 max-w-4xl text-4xl font-bold md:text-5xl"
             style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
           >
-            Join St. Mary&apos;s Secondary School â€“ Manja
+            Join St. Mary&apos;s Secondary School Ã¢â‚¬â€œ Manja
           </h2>
 
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-blue-100">
@@ -357,7 +359,7 @@ export default async function HomePage() {
       </main>
 
       <PublicFooter
-        schoolName="St. Mary's Secondary School â€“ Manja"
+        schoolName="St. Mary's Secondary School Ã¢â‚¬â€œ Manja"
         location="Manja, Uganda"
         phone={phone}
         email="ashirafkyu@gmail.com"
