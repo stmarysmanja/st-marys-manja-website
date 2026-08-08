@@ -44,7 +44,7 @@ export default function AdminDashboardPage() {
             <h2 className="text-xl font-extrabold text-blue-950">{card.title}</h2>
             <p className="mt-3 leading-7 text-slate-600">{card.description}</p>
             <span className="mt-5 inline-block text-sm font-bold text-blue-700 transition group-hover:translate-x-1">
-              Open section Ã¢â€ â€™
+              Open section →
             </span>
           </Link>
         ))}
