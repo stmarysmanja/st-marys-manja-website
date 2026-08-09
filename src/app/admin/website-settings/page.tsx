@@ -2,6 +2,58 @@
 
 import { FormEvent, useEffect, useState } from "react";
 
+
+interface AboutSettings {
+  id: number;
+  heroEyebrow: string;
+  heroTitle: string;
+  heroDescription: string;
+  welcomeEyebrow: string;
+  mottoLabel: string;
+  missionLabel: string;
+  visionLabel: string;
+  valuesEyebrow: string;
+  valuesTitle: string;
+  valuesDescription: string;
+  governanceEyebrow: string;
+  governanceTitle: string;
+  governanceDescription: string;
+  anthemEyebrow: string;
+  anthemTitle: string;
+  anthemText: string;
+  ctaTitle: string;
+  ctaDescription: string;
+  ctaPrimaryText: string;
+  ctaPrimaryLink: string;
+  ctaSecondaryText: string;
+  ctaSecondaryLink: string;
+}
+
+const emptyAboutSettings: AboutSettings = {
+  id: 1,
+  heroEyebrow: "",
+  heroTitle: "",
+  heroDescription: "",
+  welcomeEyebrow: "",
+  mottoLabel: "",
+  missionLabel: "",
+  visionLabel: "",
+  valuesEyebrow: "",
+  valuesTitle: "",
+  valuesDescription: "",
+  governanceEyebrow: "",
+  governanceTitle: "",
+  governanceDescription: "",
+  anthemEyebrow: "",
+  anthemTitle: "",
+  anthemText: "",
+  ctaTitle: "",
+  ctaDescription: "",
+  ctaPrimaryText: "",
+  ctaPrimaryLink: "",
+  ctaSecondaryText: "",
+  ctaSecondaryLink: "",
+};
 interface WebsiteSettings {
   id: number;
   schoolName: string;
@@ -56,6 +108,11 @@ export default function WebsiteSettingsPage() {
   const [settings, setSettings] =
     useState<WebsiteSettings>(emptySettings);
 
+  const [aboutSettings, setAboutSettings] =
+    useState<AboutSettings>(emptyAboutSettings);
+
+  const [savingAbout, setSavingAbout] = useState(false);
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -68,16 +125,30 @@ export default function WebsiteSettingsPage() {
         setLoading(true);
         setError("");
 
-        const response = await fetch("/api/website-settings", {
-          cache: "no-store",
-        });
+        const [websiteResponse, aboutResponse] = await Promise.all([
+          fetch("/api/website-settings", {
+            cache: "no-store",
+          }),
+          fetch("/api/about-settings", {
+            cache: "no-store",
+          }),
+        ]);
 
-        if (!response.ok) {
+        if (!websiteResponse.ok) {
           throw new Error("Unable to load website settings.");
         }
 
-        const data = await response.json();
-        setSettings(data);
+        if (!aboutResponse.ok) {
+          throw new Error("Unable to load About page settings.");
+        }
+
+        const [websiteData, aboutData] = await Promise.all([
+          websiteResponse.json(),
+          aboutResponse.json(),
+        ]);
+
+        setSettings(websiteData);
+        setAboutSettings(aboutData);
       } catch (err) {
         setError(
           err instanceof Error
@@ -103,6 +174,16 @@ export default function WebsiteSettingsPage() {
   }
 
 
+
+  function updateAboutField(
+    field: keyof AboutSettings,
+    value: string
+  ) {
+    setAboutSettings((current) => ({
+      ...current,
+      [field]: value,
+    }));
+  }
   async function handleIntroductionMediaUpload(
     event: React.ChangeEvent<HTMLInputElement>
   ) {
@@ -188,6 +269,41 @@ export default function WebsiteSettingsPage() {
     }
   }
 
+
+  async function saveAboutSettings() {
+    try {
+      setSavingAbout(true);
+      setMessage("");
+      setError("");
+
+      const response = await fetch("/api/about-settings", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(aboutSettings),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Unable to save About page settings."
+        );
+      }
+
+      setAboutSettings(data);
+      setMessage("About page settings saved successfully.");
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to save About page settings."
+      );
+    } finally {
+      setSavingAbout(false);
+    }
+  }
   if (loading) {
     return (
       <main className="min-h-screen bg-slate-100 px-4 py-16">
