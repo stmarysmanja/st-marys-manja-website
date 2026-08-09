@@ -221,14 +221,14 @@ const location =
             {values.map((value) => (
               <article
                 key={value.label}
-                className={`flex min-h-[390px] flex-col items-center rounded-[30px] border p-8 text-center shadow-2xl transition duration-500 hover:-translate-y-3 ${
+                className={`flex min-h-[300px] flex-col items-center rounded-[24px] border p-6 text-center shadow-2xl transition duration-500 hover:-translate-y-3 ${
                   value.featured
                     ? "border-blue-300 bg-gradient-to-br from-[#2453d4] to-[#08296f] text-white"
                     : "border-blue-100 bg-white text-slate-800"
                 }`}
               >
                 <div
-                  className={`flex h-24 w-24 items-center justify-center rounded-full text-4xl ${
+                  className={`flex h-16 w-16 items-center justify-center rounded-full text-2xl ${
                     value.featured
                       ? "bg-white text-[#08296f]"
                       : "bg-blue-50 text-[#2453d4]"
@@ -238,7 +238,7 @@ const location =
                 </div>
 
                 <p
-                  className={`mt-8 text-sm font-black uppercase tracking-[0.28em] ${
+                  className={`mt-5 text-xs font-black uppercase tracking-[0.24em] ${
                     value.featured ? "text-blue-100" : "text-[#2453d4]"
                   }`}
                 >
@@ -246,16 +246,16 @@ const location =
                 </p>
 
                 <div
-                  className={`mt-5 h-1 w-16 rounded-full ${
+                  className={`mt-4 h-1 w-12 rounded-full ${
                     value.featured ? "bg-white" : "bg-[#2453d4]"
                   }`}
                 />
 
                 <p
-                  className={`mt-8 flex flex-1 items-center font-bold leading-relaxed ${
+                  className={`mt-5 flex flex-1 items-center font-bold leading-relaxed ${
                     value.featured
-                      ? "text-4xl italic"
-                      : "text-xl md:text-2xl"
+                      ? "text-3xl italic"
+                      : "text-lg md:text-xl"
                   }`}
                   style={{
                     fontFamily: value.featured
@@ -292,7 +292,7 @@ const location =
                 href="/about"
                 className="mt-8 inline-flex rounded-xl bg-[#2453d4] px-7 py-4 font-bold text-white transition hover:-translate-y-1 hover:bg-[#08296f]"
               >
-                Discover Our School ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¾ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢
+                Discover Our School
               </Link>
             </div>
 
