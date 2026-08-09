@@ -38,17 +38,14 @@ export default async function PublicLayout({
 
   const phone =
     phones[0]?.trim() ||
-    websiteSettings?.phone?.trim() ||
-    "+256 700 240 640";
+    "+256 703 521 380";
 
   const email =
     emails[0]?.trim() ||
-    websiteSettings?.email?.trim() ||
     "stmarysmanjasecondaryschool2@gmail.com";
 
   const location =
     contactSettings?.location?.trim() ||
-    websiteSettings?.location?.trim() ||
     "Manja, Uganda";
 
   return (
