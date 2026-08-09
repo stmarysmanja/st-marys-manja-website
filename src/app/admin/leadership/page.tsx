@@ -2,6 +2,13 @@
 
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
 
+
+interface LeadershipSettings {
+  eyebrow: string;
+  title: string;
+  description: string;
+  emptyText: string;
+}
 interface LeadershipMember {
   id: number;
   name: string;
@@ -38,6 +45,9 @@ const emptyForm: LeadershipForm = {
 
 export default function LeadershipManagementPage() {
   const [leaders, setLeaders] = useState<LeadershipMember[]>([]);
+  const [leadershipSettings, setLeadershipSettings] =
+    useState<LeadershipSettings | null>(null);
+  const [savingSettings, setSavingSettings] = useState(false);
   const [form, setForm] = useState<LeadershipForm>(emptyForm);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
@@ -77,6 +87,75 @@ export default function LeadershipManagementPage() {
     loadLeaders();
   }, [loadLeaders]);
 
+
+  const loadLeadershipSettings = useCallback(async () => {
+    try {
+      const response = await fetch("/api/leadership-settings", {
+        cache: "no-store",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Unable to load leadership page settings."
+        );
+      }
+
+      setLeadershipSettings(data);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to load leadership page settings."
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    loadLeadershipSettings();
+  }, [loadLeadershipSettings]);
+
+  async function saveLeadershipSettings(
+    event: FormEvent<HTMLFormElement>
+  ) {
+    event.preventDefault();
+
+    if (!leadershipSettings) return;
+
+    try {
+      setSavingSettings(true);
+      setMessage("");
+      setError("");
+
+      const response = await fetch("/api/leadership-settings", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(leadershipSettings),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Unable to save leadership page settings."
+        );
+      }
+
+      setLeadershipSettings(data);
+      setMessage("Leadership page settings saved.");
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to save leadership page settings."
+      );
+    } finally {
+      setSavingSettings(false);
+    }
+  }
   function updateField<K extends keyof LeadershipForm>(
     field: K,
     value: LeadershipForm[K]
@@ -285,6 +364,89 @@ export default function LeadershipManagementPage() {
         </p>
       </div>
 
+
+      {leadershipSettings && (
+        <form
+          onSubmit={saveLeadershipSettings}
+          className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8"
+        >
+          <div className="flex flex-col gap-4 border-b border-slate-200 pb-5 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+                Public Website
+              </p>
+
+              <h2 className="mt-2 text-2xl font-extrabold text-blue-950">
+                Leadership Public Section Content
+              </h2>
+
+              <p className="mt-2 text-sm text-slate-500">
+                Edit the heading and introduction shown above the leadership cards.
+              </p>
+            </div>
+
+            <button
+              type="submit"
+              disabled={savingSettings}
+              className="rounded-xl bg-green-600 px-6 py-3 font-extrabold text-white disabled:opacity-60"
+            >
+              {savingSettings ? "Saving..." : "Save Leadership Section"}
+            </button>
+          </div>
+
+          <div className="mt-6 grid gap-5 lg:grid-cols-2">
+            <Field
+              label="Small heading"
+              value={leadershipSettings.eyebrow}
+              onChange={(value) =>
+                setLeadershipSettings({
+                  ...leadershipSettings,
+                  eyebrow: value,
+                })
+              }
+            />
+
+            <Field
+              label="Main heading"
+              value={leadershipSettings.title}
+              onChange={(value) =>
+                setLeadershipSettings({
+                  ...leadershipSettings,
+                  title: value,
+                })
+              }
+            />
+
+            <div className="lg:col-span-2">
+              <TextArea
+                label="Leadership description"
+                value={leadershipSettings.description}
+                rows={4}
+                onChange={(value) =>
+                  setLeadershipSettings({
+                    ...leadershipSettings,
+                    description: value,
+                  })
+                }
+              />
+            </div>
+
+            <div className="lg:col-span-2">
+              <TextArea
+                label="Message when no leaders are published"
+                value={leadershipSettings.emptyText}
+                rows={3}
+                onChange={(value) =>
+                  setLeadershipSettings({
+                    ...leadershipSettings,
+                    emptyText: value,
+                  })
+                }
+              />
+            </div>
+          </div>
+        </form>
+      )}
       <div className="mt-8 grid gap-8 xl:grid-cols-[420px_1fr]">
         <form
           onSubmit={saveLeader}

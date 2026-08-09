@@ -258,3 +258,13 @@ model GallerySettings {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
+
+model LeadershipSettings {
+  id          Int      @id @default(1)
+  eyebrow     String   @default("Meet Our Team")
+  title       String   @default("School Leadership")
+  description String   @default("Visionary leaders guiding academic excellence, discipline and holistic student development.")
+  emptyText   String   @default("Leadership profiles will appear here after they are published from the Admin Portal.")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
