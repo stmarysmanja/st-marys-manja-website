@@ -18,10 +18,37 @@ interface AdmissionApplication {
   createdAt: string;
 }
 
+
+interface AdmissionSettings {
+  heroTitle: string;
+  heroSubtitle: string;
+  vacanciesTitle: string;
+  vacanciesText: string;
+  step1Title: string;
+  step1Text: string;
+  step2Title: string;
+  step2Text: string;
+  step3Title: string;
+  step3Text: string;
+  formTitle: string;
+  formSubtitle: string;
+  submitButtonText: string;
+  successTitle: string;
+  successText: string;
+  documentsTitle: string;
+  documentsItems: string;
+  checklistTitle: string;
+  checklistDescription: string;
+  checklistButtonText: string;
+  checklistUrl: string;
+  classOptions: string;
+}
 const statuses = ["All", "New", "Reviewed", "Accepted", "Rejected"] as const;
 
 export default function AdmissionsManagementPage() {
   const [applications, setApplications] = useState<AdmissionApplication[]>([]);
+  const [pageSettings, setPageSettings] = useState<AdmissionSettings | null>(null);
+  const [savingPageSettings, setSavingPageSettings] = useState(false);
   const [selected, setSelected] = useState<AdmissionApplication | null>(null);
   const [filter, setFilter] = useState<(typeof statuses)[number]>("All");
   const [search, setSearch] = useState("");
@@ -58,6 +85,71 @@ export default function AdmissionsManagementPage() {
     loadApplications();
   }, [loadApplications]);
 
+
+  const loadAdmissionPageSettings = useCallback(async () => {
+    try {
+      const response = await fetch("/api/admission-settings", {
+        cache: "no-store",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Unable to load admission page settings.");
+      }
+
+      setPageSettings(data);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to load admission page settings."
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    loadAdmissionPageSettings();
+  }, [loadAdmissionPageSettings]);
+
+  async function saveAdmissionPageSettings(
+    event: React.FormEvent<HTMLFormElement>
+  ) {
+    event.preventDefault();
+
+    if (!pageSettings) return;
+
+    try {
+      setSavingPageSettings(true);
+      setMessage("");
+      setError("");
+
+      const response = await fetch("/api/admission-settings", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(pageSettings),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Unable to save admission page settings.");
+      }
+
+      setPageSettings(data);
+      setMessage("Admissions page settings saved.");
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to save admission page settings."
+      );
+    } finally {
+      setSavingPageSettings(false);
+    }
+  }
   const counts = useMemo(() => {
     return {
       total: applications.length,
@@ -169,6 +261,102 @@ export default function AdmissionsManagementPage() {
         </p>
       </div>
 
+
+      {pageSettings && (
+        <form
+          onSubmit={saveAdmissionPageSettings}
+          className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8"
+        >
+          <div className="flex flex-col gap-4 border-b border-slate-200 pb-5 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+                Public Website
+              </p>
+              <h2 className="mt-2 text-2xl font-extrabold text-blue-950">
+                Admissions Public Page Content
+              </h2>
+              <p className="mt-2 text-sm text-slate-500">
+                Edit the content visitors see on the Admissions page.
+              </p>
+            </div>
+
+            <button
+              type="submit"
+              disabled={savingPageSettings}
+              className="rounded-xl bg-green-600 px-6 py-3 font-extrabold text-white disabled:opacity-60"
+            >
+              {savingPageSettings ? "Saving..." : "Save Admissions Page"}
+            </button>
+          </div>
+
+          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+
+            {[
+              ["Hero Title", "heroTitle"],
+              ["Hero Subtitle", "heroSubtitle"],
+              ["Vacancies Title", "vacanciesTitle"],
+              ["Vacancies Text", "vacanciesText"],
+              ["Step 1 Title", "step1Title"],
+              ["Step 2 Title", "step2Title"],
+              ["Step 3 Title", "step3Title"],
+              ["Form Title", "formTitle"],
+              ["Submit Button Text", "submitButtonText"],
+              ["Success Title", "successTitle"],
+              ["Documents Title", "documentsTitle"],
+              ["Checklist Title", "checklistTitle"],
+              ["Checklist Button Text", "checklistButtonText"],
+              ["Checklist URL", "checklistUrl"],
+            ].map(([label, key]) => (
+              <label key={key} className="block">
+                <span className="mb-2 block text-xs font-bold uppercase text-slate-600">
+                  {label}
+                </span>
+
+                <input
+                  value={(pageSettings as any)[key] || ""}
+                  onChange={(event) =>
+                    setPageSettings({
+                      ...pageSettings,
+                      [key]: event.target.value,
+                    })
+                  }
+                  className="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900"
+                />
+              </label>
+            ))}
+
+            {[
+              ["Step 1 Description", "step1Text"],
+              ["Step 2 Description", "step2Text"],
+              ["Step 3 Description", "step3Text"],
+              ["Form Subtitle", "formSubtitle"],
+              ["Success Message", "successText"],
+              ["Documents - one item per line", "documentsItems"],
+              ["Checklist Description", "checklistDescription"],
+              ["Classes - one class per line", "classOptions"],
+            ].map(([label, key]) => (
+              <label key={key} className="block lg:col-span-2">
+                <span className="mb-2 block text-xs font-bold uppercase text-slate-600">
+                  {label}
+                </span>
+
+                <textarea
+                  rows={4}
+                  value={(pageSettings as any)[key] || ""}
+                  onChange={(event) =>
+                    setPageSettings({
+                      ...pageSettings,
+                      [key]: event.target.value,
+                    })
+                  }
+                  className="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900"
+                />
+              </label>
+            ))}
+
+          </div>
+        </form>
+      )}
       <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         <StatCard label="Total" value={counts.total} />
         <StatCard label="New" value={counts.New} />

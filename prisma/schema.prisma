@@ -213,3 +213,37 @@ model AcademicLifeItem {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+model AdmissionSettings {
+  id                    Int      @id @default(1)
+  heroTitle             String   @default("Online Application")
+  heroSubtitle          String   @default("Apply to Join St Mary's Secondary School-Manja")
+  vacanciesTitle        String   @default("Vacancies Open")
+  vacanciesText         String   @default("We are currently accepting applications for the next intake.")
+
+  step1Title            String   @default("1. Submit Application")
+  step1Text             String   @default("Complete the online form below with accurate student and guardian details.")
+  step2Title            String   @default("2. Assessment & Review")
+  step2Text             String   @default("Our Admissions Office reviews submitted grades, results, and student history.")
+  step3Title            String   @default("3. Admission & Reporting")
+  step3Text             String   @default("Successful applicants receive official admission letters and guidelines for reporting.")
+
+  formTitle             String   @default("Student Admission Application Form")
+  formSubtitle          String   @default("Please fill in all required fields below to send your application directly to our admissions team.")
+  submitButtonText      String   @default("Submit Application Form")
+
+  successTitle          String   @default("Application submitted successfully!")
+  successText           String   @default("Please keep this reference number. Our Admissions Office will contact you via phone or email.")
+
+  documentsTitle        String   @default("Documents to Prepare & Bring During Admission")
+  documentsItems        String   @default("Birth certificate (copy)\nMost recent end-of-term/PLE/UCE results\nTwo passport-size photos\nTestimonial from previous school\nFilled application form\nMedical form (provided after acceptance)")
+
+  checklistTitle        String   @default("Requirements Checklist (PDF)")
+  checklistDescription  String   @default("Download and print the required document list for physical submission.")
+  checklistButtonText   String   @default("Coming soon")
+  checklistUrl          String   @default("")
+
+  classOptions          String   @default("Senior 1 (O-Level)\nSenior 2 (O-Level)\nSenior 3 (O-Level)\nSenior 4 (O-Level)\nSenior 5 (A-Level Arts/Sciences)\nSenior 6 (A-Level Arts/Sciences)")
+
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}

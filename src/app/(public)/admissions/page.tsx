@@ -3,13 +3,12 @@
 import { useState, useEffect, FormEvent } from "react";
 
 export default function AdmissionsPage() {
-    const [schoolName, setSchoolName] = useState("St. Mary's Secondary School - Manja");
+    const [settings, setSettings] = useState<any>(null);
     const [submitted, setSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [applicationNumber, setApplicationNumber] = useState("");
 
-    // Application Form State
     const [formData, setFormData] = useState({
         studentName: "",
         gender: "Male",
@@ -22,12 +21,23 @@ export default function AdmissionsPage() {
         pleResults: "",
     });
 
+
     useEffect(() => {
-        const savedSettings = localStorage.getItem("sm_settings");
-        if (savedSettings) {
-            const parsed = JSON.parse(savedSettings);
-            if (parsed.schoolName) setSchoolName(parsed.schoolName);
+        async function loadSettings() {
+            try {
+                const response = await fetch("/api/admission-settings", {
+                    cache: "no-store",
+                });
+
+                if (response.ok) {
+                    setSettings(await response.json());
+                }
+            } catch (error) {
+                console.error("Unable to load admission settings:", error);
+            }
         }
+
+        loadSettings();
     }, []);
 
     const handleSubmit = async (e: FormEvent) => {
@@ -80,17 +90,17 @@ export default function AdmissionsPage() {
             <section className="bg-[#0b1b4f] text-white pt-12 pb-24 px-4 text-center relative">
                 <div className="max-w-4xl mx-auto space-y-5">
                     <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight text-white">
-                        Online Application
+                        {settings?.heroTitle || "Online Application"}
                     </h1>
                     <p className="text-base md:text-lg text-slate-300 font-serif">
-                        Apply to Join {schoolName}
+                        {settings?.heroSubtitle || "Apply to Join St Mary's Secondary School-Manja"}
                     </p>
 
                     {/* Vacancies Open Banner */}
                     <div className="inline-flex items-center gap-3 bg-[#142666] border border-blue-400/30 text-slate-200 px-6 py-2.5 rounded-full text-xs md:text-sm shadow-inner">
                         <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
                         <span>
-                            <strong className="font-semibold text-white">Vacancies Open</strong> — We are currently accepting applications for the next intake.
+                            <strong className="font-semibold text-white">{settings?.vacanciesTitle || "Vacancies Open"}</strong>  â€” {settings?.vacanciesText || "We are currently accepting applications for the next intake."}
                         </span>
                     </div>
                 </div>
@@ -100,31 +110,31 @@ export default function AdmissionsPage() {
             <section className="max-w-5xl mx-auto px-4 -mt-12 relative z-20 mb-14 grid md:grid-cols-3 gap-6">
                 <div className="bg-white p-7 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-slate-100 text-center flex flex-col items-center">
                     <div className="w-13 h-13 bg-[#0b1b4f] text-white rounded-2xl flex items-center justify-center mb-4 text-xl shadow-md">
-                        ✍️
+                        Ã¢Å“ÂÃ¯Â¸Â
                     </div>
-                    <h3 className="font-serif font-bold text-lg text-slate-900 mb-2">1. Submit Application</h3>
+                    <h3 className="font-serif font-bold text-lg text-slate-900 mb-2">{settings?.step1Title || "1. Submit Application"}</h3>
                     <p className="text-xs text-slate-500 leading-relaxed">
-                        Complete the online form below with accurate student and guardian details.
+                        {settings?.step1Text || "Complete the online form below with accurate student and guardian details."}
                     </p>
                 </div>
 
                 <div className="bg-white p-7 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-slate-100 text-center flex flex-col items-center">
                     <div className="w-13 h-13 bg-[#0b1b4f] text-white rounded-2xl flex items-center justify-center mb-4 text-xl shadow-md">
-                        📋
+                        Ã°Å¸â€œâ€¹
                     </div>
-                    <h3 className="font-serif font-bold text-lg text-slate-900 mb-2">2. Assessment & Review</h3>
+                    <h3 className="font-serif font-bold text-lg text-slate-900 mb-2">{settings?.step2Title || "2. Assessment & Review"}</h3>
                     <p className="text-xs text-slate-500 leading-relaxed">
-                        Our Admissions Office reviews submitted grades, results, and student history.
+                        {settings?.step2Text || "Our Admissions Office reviews submitted grades, results, and student history."}
                     </p>
                 </div>
 
                 <div className="bg-white p-7 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-slate-100 text-center flex flex-col items-center">
                     <div className="w-13 h-13 bg-[#0b1b4f] text-white rounded-2xl flex items-center justify-center mb-4 text-xl shadow-md">
-                        🔔
+                        Ã°Å¸â€â€
                     </div>
-                    <h3 className="font-serif font-bold text-lg text-slate-900 mb-2">3. Admission & Reporting</h3>
+                    <h3 className="font-serif font-bold text-lg text-slate-900 mb-2">{settings?.step3Title || "3. Admission & Reporting"}</h3>
                     <p className="text-xs text-slate-500 leading-relaxed">
-                        Successful applicants receive official admission letters and guidelines for reporting.
+                        {settings?.step3Text || "Successful applicants receive official admission letters and guidelines for reporting."}
                     </p>
                 </div>
             </section>
@@ -135,17 +145,17 @@ export default function AdmissionsPage() {
 
                     <div className="border-b border-slate-100 pb-6 mb-8 text-center">
                         <h2 className="text-3xl font-serif font-bold text-[#0b1b4f]">
-                            Student Admission Application Form
+                            {settings?.formTitle || "Student Admission Application Form"}
                         </h2>
                         <p className="text-xs md:text-sm text-slate-500 mt-2">
-                            Please fill in all required fields below to send your application directly to our admissions team email.
+                            {settings?.formSubtitle || "Please fill in all required fields below to send your application directly to our admissions team."}
                         </p>
                     </div>
 
                     {/* Success Banner */}
                     {submitted && (
                         <div className="mb-8 p-5 bg-emerald-50 border border-emerald-400 text-emerald-900 rounded-2xl text-sm font-semibold text-center shadow-sm">
-                            <p>🎉 Application submitted successfully!</p>
+                            <p>Success: Application submitted successfully!</p>
                             {applicationNumber && (
                                 <p className="mt-2">
                                     Your application reference is{" "}
@@ -163,7 +173,7 @@ export default function AdmissionsPage() {
                     {/* Error Banner */}
                     {errorMessage && (
                         <div className="mb-8 p-5 bg-rose-50 border border-rose-400 text-rose-900 rounded-2xl text-sm font-semibold text-center shadow-sm">
-                            ⚠️ {errorMessage}
+                            Ã¢Å¡Â Ã¯Â¸Â {errorMessage}
                         </div>
                     )}
 
@@ -218,12 +228,15 @@ export default function AdmissionsPage() {
                                         onChange={(e) => setFormData({ ...formData, applyingClass: e.target.value })}
                                         className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0b1b4f] focus:bg-white"
                                     >
-                                        <option>Senior 1 (O-Level)</option>
-                                        <option>Senior 2 (O-Level)</option>
-                                        <option>Senior 3 (O-Level)</option>
-                                        <option>Senior 4 (O-Level)</option>
-                                        <option>Senior 5 (A-Level Arts/Sciences)</option>
-                                        <option>Senior 6 (A-Level Arts/Sciences)</option>
+                                        {(settings?.classOptions || "Senior 1 (O-Level)`nSenior 2 (O-Level)`nSenior 3 (O-Level)`nSenior 4 (O-Level)`nSenior 5 (A-Level Arts/Sciences)`nSenior 6 (A-Level Arts/Sciences)")
+    .split("\n")
+    .map((item: string) => item.trim())
+    .filter(Boolean)
+    .map((item: string) => (
+        <option key={item} value={item}>
+            {item}
+        </option>
+    ))}
                                     </select>
                                 </div>
                             </div>
@@ -322,8 +335,8 @@ export default function AdmissionsPage() {
                                     </>
                                 ) : (
                                     <>
-                                        <span>Submit Application Form</span>
-                                        <span>➔</span>
+                                        <span>{settings?.submitButtonText || "Submit Application Form"}</span>
+                                        <span>â†’</span>
                                     </>
                                 )}
                             </button>
@@ -339,52 +352,54 @@ export default function AdmissionsPage() {
                 {/* Highlight Box */}
                 <div className="bg-[#f2fafb] border-2 border-[#5ce1e6] rounded-3xl p-8 md:p-10 shadow-sm">
                     <h2 className="text-2xl font-serif font-bold text-[#0b1b4f] text-center mb-8">
-                        Documents to Prepare & Bring During Admission
+                        {settings?.documentsTitle || "Documents to Prepare & Bring During Admission"}
                     </h2>
 
                     <div className="grid md:grid-cols-2 gap-y-4 gap-x-8 text-xs md:text-sm text-slate-700">
-                        <div className="flex items-center gap-3">
-                            <div className="w-5 h-5 rounded-full border border-slate-400 flex items-center justify-center shrink-0">✓</div>
-                            <span>Birth certificate (copy)</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <div className="w-5 h-5 rounded-full border border-slate-400 flex items-center justify-center shrink-0">✓</div>
-                            <span>Most recent end-of-term/PLE/UCE results</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <div className="w-5 h-5 rounded-full border border-slate-400 flex items-center justify-center shrink-0">✓</div>
-                            <span>Two passport-size photos</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <div className="w-5 h-5 rounded-full border border-slate-400 flex items-center justify-center shrink-0">✓</div>
-                            <span>Testimonial from previous school</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <div className="w-5 h-5 rounded-full border border-slate-400 flex items-center justify-center shrink-0">✓</div>
-                            <span>Filled application form</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <div className="w-5 h-5 rounded-full border border-slate-400 flex items-center justify-center shrink-0">✓</div>
-                            <span>Medical form (provided after acceptance)</span>
-                        </div>
-                    </div>
+    {(settings?.documentsItems || "")
+        .split("\n")
+        .map((item: string) => item.trim())
+        .filter(Boolean)
+        .map((item: string) => (
+            <div key={item} className="flex items-center gap-3">
+                <div className="w-5 h-5 rounded-full border border-slate-400 flex items-center justify-center shrink-0">
+                    âœ“
+                </div>
+                <span>{item}</span>
+            </div>
+        ))}
+</div>
                 </div>
 
                 {/* Printable Download Checklist */}
                 <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
                     <div className="flex items-center gap-5">
                         <div className="w-14 h-14 bg-[#0b1b4f] text-white rounded-2xl flex items-center justify-center text-xl shrink-0 shadow-sm">
-                            📄
+                            Ã°Å¸â€œâ€ž
                         </div>
                         <div>
-                            <h4 className="font-serif font-bold text-slate-900 text-lg">Requirements Checklist (PDF)</h4>
-                            <p className="text-xs text-slate-500 mt-1">Download and print the required document list for physical submission.</p>
+                            <h4 className="font-serif font-bold text-slate-900 text-lg">{settings?.checklistTitle || "Requirements Checklist (PDF)"}</h4>
+                            <p className="text-xs text-slate-500 mt-1">{settings?.checklistDescription || "Download and print the required document list for physical submission."}</p>
                         </div>
                     </div>
 
-                    <button disabled className="bg-[#0b1b4f] text-white px-7 py-3.5 rounded-2xl font-semibold text-sm flex items-center gap-3 opacity-90 cursor-not-allowed shrink-0">
-                        <span>📥 Coming soon</span>
-                    </button>
+                    {settings?.checklistUrl ? (
+    <a
+        href={settings.checklistUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="bg-[#0b1b4f] text-white px-7 py-3.5 rounded-2xl font-semibold text-sm flex items-center gap-3 shrink-0"
+    >
+        {settings?.checklistButtonText || "Download Checklist"}
+    </a>
+) : (
+    <button
+        disabled
+        className="bg-[#0b1b4f] text-white px-7 py-3.5 rounded-2xl font-semibold text-sm opacity-70 cursor-not-allowed shrink-0"
+    >
+        {settings?.checklistButtonText || "Coming soon"}
+    </button>
+)}
                 </div>
 
             </section>
