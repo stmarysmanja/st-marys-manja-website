@@ -317,3 +317,51 @@ model AboutSettings {
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
 }
+
+
+model GlobalLayoutSettings {
+  id                        Int      @id @default(1)
+
+  badgeUrl                  String   @default("/branding/school-badge.png")
+  badgeAlt                  String   @default("St. Mary's Secondary School Manja badge")
+  headerLocationLabel       String   @default("Manja")
+
+  homeLabel                 String   @default("Home")
+  aboutLabel                String   @default("About")
+  academicsLabel            String   @default("Academics")
+  studentLifeLabel          String   @default("Student Life")
+  mediaLabel                String   @default("Media")
+  admissionsLabel           String   @default("Admissions")
+  contactLabel              String   @default("Contact")
+
+  topAdmissionsText         String   @default("Online Admissions")
+  topAdmissionsLink         String   @default("/admissions")
+
+  aboutMenuTitle            String   @default("Discover St. Mary's")
+  aboutMenuSubtitle         String   @default("Our identity, history, values and leadership.")
+  aboutLinks                String   @default("[{\"label\":\"About Our School\",\"href\":\"/about\"},{\"label\":\"Mission, Vision & Motto\",\"href\":\"/about#mission\"},{\"label\":\"Leadership\",\"href\":\"/#leadership\"},{\"label\":\"Board of Governors\",\"href\":\"/about#governance\"},{\"label\":\"School Anthem\",\"href\":\"/about#anthem\"}]")
+
+  academicsMenuTitle        String   @default("Academic Programmes")
+  academicsMenuSubtitle     String   @default("Quality O-Level and A-Level education.")
+  academicsLinks            String   @default("[{\"label\":\"Academics Overview\",\"href\":\"/academics\"},{\"label\":\"O-Level Programme\",\"href\":\"/academics#o-level\"},{\"label\":\"A-Level Programme\",\"href\":\"/academics#a-level\"},{\"label\":\"Departments\",\"href\":\"/academics#departments\"},{\"label\":\"Subjects Offered\",\"href\":\"/academics#subjects\"},{\"label\":\"Academic Performance\",\"href\":\"/academics#performance\"}]")
+
+  studentLifeMenuTitle      String   @default("Life Beyond the Classroom")
+  studentLifeMenuSubtitle   String   @default("Talent, leadership and holistic development.")
+  studentLifeLinks          String   @default("[{\"label\":\"Academic Life\",\"href\":\"/academics#co-curricular\"},{\"label\":\"Clubs & Societies\",\"href\":\"/academics#co-curricular\"},{\"label\":\"Sports\",\"href\":\"/academics#co-curricular\"},{\"label\":\"Music, Dance & Drama\",\"href\":\"/academics#co-curricular\"},{\"label\":\"Agriculture\",\"href\":\"/academics#co-curricular\"},{\"label\":\"School Calendar\",\"href\":\"/academics#calendar\"}]")
+
+  mediaLinks                String   @default("[{\"label\":\"Latest News\",\"href\":\"/news\"},{\"label\":\"Photo Gallery\",\"href\":\"/gallery\"},{\"label\":\"School Calendar\",\"href\":\"/academics#calendar\"}]")
+
+  footerDescription         String   @default("Nurturing disciplined, responsible and academically excellent learners.")
+
+  footerQuickTitle          String   @default("Quick Links")
+  footerQuickLinks          String   @default("[{\"label\":\"About Us\",\"href\":\"/about\"},{\"label\":\"Academics\",\"href\":\"/academics\"},{\"label\":\"Admissions\",\"href\":\"/admissions\"},{\"label\":\"Contact\",\"href\":\"/contact\"}]")
+
+  footerMediaTitle          String   @default("Media")
+  footerMediaLinks          String   @default("[{\"label\":\"Latest News\",\"href\":\"/news\"},{\"label\":\"Gallery\",\"href\":\"/gallery\"},{\"label\":\"Academic Life\",\"href\":\"/academics#co-curricular\"},{\"label\":\"School Calendar\",\"href\":\"/academics#calendar\"}]")
+
+  footerContactTitle        String   @default("Contact")
+  footerCopyrightText       String   @default("All rights reserved.")
+
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+}

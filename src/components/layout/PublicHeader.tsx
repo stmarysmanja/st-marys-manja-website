@@ -16,55 +16,90 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
+export interface PublicNavItem {
+  label: string;
+  href: string;
+}
+
 interface PublicHeaderProps {
   schoolName: string;
   phone: string;
   email: string;
+
+  badgeUrl: string;
+  badgeAlt: string;
+  headerLocationLabel: string;
+
+  homeLabel: string;
+  aboutLabel: string;
+  academicsLabel: string;
+  studentLifeLabel: string;
+  mediaLabel: string;
+  admissionsLabel: string;
+  contactLabel: string;
+
+  topAdmissionsText: string;
+  topAdmissionsLink: string;
+
+  aboutMenuTitle: string;
+  aboutMenuSubtitle: string;
+  aboutLinks: PublicNavItem[];
+
+  academicsMenuTitle: string;
+  academicsMenuSubtitle: string;
+  academicsLinks: PublicNavItem[];
+
+  studentLifeMenuTitle: string;
+  studentLifeMenuSubtitle: string;
+  studentLifeLinks: PublicNavItem[];
+
+  mediaLinks: PublicNavItem[];
 }
-
-const aboutLinks = [
-  { label: "About Our School", href: "/about" },
-  { label: "Mission, Vision & Motto", href: "/about#mission" },
-  { label: "Leadership", href: "/#leadership" },
-  { label: "Board of Governors", href: "/about#governance" },
-  { label: "School Anthem", href: "/about#anthem" },
-];
-
-const academicsLinks = [
-  { label: "Academics Overview", href: "/academics" },
-  { label: "O-Level Programme", href: "/academics#o-level" },
-  { label: "A-Level Programme", href: "/academics#a-level" },
-  { label: "Departments", href: "/academics#departments" },
-  { label: "Subjects Offered", href: "/academics#subjects" },
-  { label: "Academic Performance", href: "/academics#performance" },
-];
-
-const studentLifeLinks = [
-  { label: "Academic Life", href: "/academics#co-curricular" },
-  { label: "Clubs & Societies", href: "/academics#co-curricular" },
-  { label: "Sports", href: "/academics#co-curricular" },
-  { label: "Music, Dance & Drama", href: "/academics#co-curricular" },
-  { label: "Agriculture", href: "/academics#co-curricular" },
-  { label: "School Calendar", href: "/academics#calendar" },
-];
-
-const mediaLinks = [
-  { label: "Latest News", href: "/news", icon: Newspaper },
-  { label: "Photo Gallery", href: "/gallery", icon: Images },
-  { label: "School Calendar", href: "/academics#calendar", icon: CalendarDays },
-];
 
 export default function PublicHeader({
   schoolName,
   phone,
   email,
+
+  badgeUrl,
+  badgeAlt,
+  headerLocationLabel,
+
+  homeLabel,
+  aboutLabel,
+  academicsLabel,
+  studentLifeLabel,
+  mediaLabel,
+  admissionsLabel,
+  contactLabel,
+
+  topAdmissionsText,
+  topAdmissionsLink,
+
+  aboutMenuTitle,
+  aboutMenuSubtitle,
+  aboutLinks,
+
+  academicsMenuTitle,
+  academicsMenuSubtitle,
+  academicsLinks,
+
+  studentLifeMenuTitle,
+  studentLifeMenuSubtitle,
+  studentLifeLinks,
+
+  mediaLinks,
 }: PublicHeaderProps) {
   const pathname = usePathname();
+
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileSection, setMobileSection] = useState<string | null>(null);
+  const [mobileSection, setMobileSection] =
+    useState<string | null>(null);
 
   const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+    href === "/"
+      ? pathname === "/"
+      : pathname.startsWith(href);
 
   function closeMobile() {
     setMobileOpen(false);
@@ -94,10 +129,10 @@ export default function PublicHeader({
           </div>
 
           <Link
-            href="/admissions"
+            href={topAdmissionsLink}
             className="rounded-md bg-white px-4 py-2 font-extrabold text-[#08296f] transition hover:bg-blue-100"
           >
-            Online Admissions
+            {topAdmissionsText}
           </Link>
         </div>
       </div>
@@ -111,8 +146,8 @@ export default function PublicHeader({
           >
             <div className="relative h-20 w-16 shrink-0 overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-blue-100">
               <Image
-                src="/branding/school-badge.png"
-                alt="St. Mary's Secondary School Manja badge"
+                src={badgeUrl}
+                alt={badgeAlt}
                 fill
                 priority
                 sizes="64px"
@@ -124,59 +159,78 @@ export default function PublicHeader({
               <p className="truncate text-lg font-black uppercase text-[#08296f] md:text-xl">
                 {schoolName}
               </p>
+
               <p className="mt-1 text-[10px] font-extrabold uppercase tracking-[0.22em] text-[#2453d4]">
-                Manja
+                {headerLocationLabel}
               </p>
             </div>
           </Link>
 
           <div className="hidden items-center gap-1 lg:flex">
             <NavLink href="/" active={isActive("/")}>
-              Home
+              {homeLabel}
             </NavLink>
 
-            <MegaMenu label="About" active={isActive("/about")}>
+            <MegaMenu
+              label={aboutLabel}
+              active={isActive("/about")}
+            >
               <MenuPanel
-                title="Discover St. Mary's"
-                subtitle="Our identity, history, values and leadership."
-                icon={<BadgeMini />}
+                title={aboutMenuTitle}
+                subtitle={aboutMenuSubtitle}
+                icon={<BadgeMini badgeUrl={badgeUrl} />}
                 links={aboutLinks}
               />
             </MegaMenu>
 
-            <MegaMenu label="Academics" active={isActive("/academics")}>
+            <MegaMenu
+              label={academicsLabel}
+              active={isActive("/academics")}
+            >
               <MenuPanel
-                title="Academic Programmes"
-                subtitle="Quality O-Level and A-Level education."
+                title={academicsMenuTitle}
+                subtitle={academicsMenuSubtitle}
                 icon={<BookOpen className="h-6 w-6" />}
                 links={academicsLinks}
               />
             </MegaMenu>
 
-            <MegaMenu label="Student Life" active={false}>
+            <MegaMenu
+              label={studentLifeLabel}
+              active={false}
+            >
               <MenuPanel
-                title="Life Beyond the Classroom"
-                subtitle="Talent, leadership and holistic development."
+                title={studentLifeMenuTitle}
+                subtitle={studentLifeMenuSubtitle}
                 icon={<CalendarDays className="h-6 w-6" />}
                 links={studentLifeLinks}
               />
             </MegaMenu>
 
             <MegaMenu
-              label="Media"
-              active={isActive("/news") || isActive("/gallery")}
+              label={mediaLabel}
+              active={
+                isActive("/news") ||
+                isActive("/gallery")
+              }
             >
               <div className="grid w-[500px] grid-cols-3 gap-3 rounded-3xl border border-blue-100 bg-white p-5 shadow-2xl">
-                {mediaLinks.map((item) => {
-                  const Icon = item.icon;
+                {mediaLinks.map((item, index) => {
+                  const Icon =
+                    index === 0
+                      ? Newspaper
+                      : index === 1
+                        ? Images
+                        : CalendarDays;
 
                   return (
                     <Link
-                      key={item.label}
+                      key={`${item.href}-${item.label}`}
                       href={item.href}
                       className="rounded-2xl border border-slate-100 p-5 text-center transition hover:-translate-y-1 hover:border-blue-200 hover:bg-blue-50"
                     >
                       <Icon className="mx-auto h-7 w-7 text-[#2453d4]" />
+
                       <p className="mt-3 text-sm font-extrabold text-[#08296f]">
                         {item.label}
                       </p>
@@ -186,18 +240,26 @@ export default function PublicHeader({
               </div>
             </MegaMenu>
 
-            <NavLink href="/admissions" active={isActive("/admissions")}>
-              Admissions
+            <NavLink
+              href="/admissions"
+              active={isActive("/admissions")}
+            >
+              {admissionsLabel}
             </NavLink>
 
-            <NavLink href="/contact" active={isActive("/contact")}>
-              Contact
+            <NavLink
+              href="/contact"
+              active={isActive("/contact")}
+            >
+              {contactLabel}
             </NavLink>
           </div>
 
           <button
             type="button"
-            onClick={() => setMobileOpen((value) => !value)}
+            onClick={() =>
+              setMobileOpen((value) => !value)
+            }
             className="rounded-xl bg-[#08296f] p-3 text-white lg:hidden"
             aria-label="Toggle navigation"
           >
@@ -212,15 +274,17 @@ export default function PublicHeader({
         {mobileOpen && (
           <div className="border-t border-blue-100 bg-white px-4 pb-6 pt-3 shadow-xl lg:hidden">
             <MobileLink href="/" onClick={closeMobile}>
-              Home
+              {homeLabel}
             </MobileLink>
 
             <MobileGroup
-              label="About"
+              label={aboutLabel}
               open={mobileSection === "about"}
               onClick={() =>
                 setMobileSection(
-                  mobileSection === "about" ? null : "about"
+                  mobileSection === "about"
+                    ? null
+                    : "about"
                 )
               }
               links={aboutLinks}
@@ -228,11 +292,13 @@ export default function PublicHeader({
             />
 
             <MobileGroup
-              label="Academics"
+              label={academicsLabel}
               open={mobileSection === "academics"}
               onClick={() =>
                 setMobileSection(
-                  mobileSection === "academics" ? null : "academics"
+                  mobileSection === "academics"
+                    ? null
+                    : "academics"
                 )
               }
               links={academicsLinks}
@@ -240,11 +306,13 @@ export default function PublicHeader({
             />
 
             <MobileGroup
-              label="Student Life"
+              label={studentLifeLabel}
               open={mobileSection === "student-life"}
               onClick={() =>
                 setMobileSection(
-                  mobileSection === "student-life" ? null : "student-life"
+                  mobileSection === "student-life"
+                    ? null
+                    : "student-life"
                 )
               }
               links={studentLifeLinks}
@@ -252,26 +320,31 @@ export default function PublicHeader({
             />
 
             <MobileGroup
-              label="Media"
+              label={mediaLabel}
               open={mobileSection === "media"}
               onClick={() =>
                 setMobileSection(
-                  mobileSection === "media" ? null : "media"
+                  mobileSection === "media"
+                    ? null
+                    : "media"
                 )
               }
-              links={mediaLinks.map(({ label, href }) => ({
-                label,
-                href,
-              }))}
+              links={mediaLinks}
               close={closeMobile}
             />
 
-            <MobileLink href="/admissions" onClick={closeMobile}>
-              Admissions
+            <MobileLink
+              href="/admissions"
+              onClick={closeMobile}
+            >
+              {admissionsLabel}
             </MobileLink>
 
-            <MobileLink href="/contact" onClick={closeMobile}>
-              Contact
+            <MobileLink
+              href="/contact"
+              onClick={closeMobile}
+            >
+              {contactLabel}
             </MobileLink>
           </div>
         )}
@@ -280,11 +353,15 @@ export default function PublicHeader({
   );
 }
 
-function BadgeMini() {
+function BadgeMini({
+  badgeUrl,
+}: {
+  badgeUrl: string;
+}) {
   return (
     <div className="relative h-9 w-8 overflow-hidden rounded-md bg-white">
       <Image
-        src="/branding/school-badge.png"
+        src={badgeUrl}
         alt=""
         fill
         sizes="32px"
@@ -337,6 +414,7 @@ function MegaMenu({
         }`}
       >
         {label}
+
         <ChevronDown className="h-4 w-4 transition group-hover:rotate-180" />
       </button>
 
@@ -356,7 +434,7 @@ function MenuPanel({
   title: string;
   subtitle: string;
   icon: React.ReactNode;
-  links: { label: string; href: string }[];
+  links: PublicNavItem[];
 }) {
   return (
     <div className="w-[620px] overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-2xl">
@@ -366,15 +444,20 @@ function MenuPanel({
         </div>
 
         <div>
-          <h3 className="font-extrabold">{title}</h3>
-          <p className="mt-1 text-xs text-blue-100">{subtitle}</p>
+          <h3 className="font-extrabold">
+            {title}
+          </h3>
+
+          <p className="mt-1 text-xs text-blue-100">
+            {subtitle}
+          </p>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-2 p-4">
         {links.map((item) => (
           <Link
-            key={item.label}
+            key={`${item.href}-${item.label}`}
             href={item.href}
             className="rounded-xl px-4 py-3 text-sm font-bold text-slate-700 transition hover:bg-blue-50 hover:text-[#2453d4]"
           >
@@ -416,7 +499,7 @@ function MobileGroup({
   label: string;
   open: boolean;
   onClick: () => void;
-  links: { label: string; href: string }[];
+  links: PublicNavItem[];
   close: () => void;
 }) {
   return (
@@ -427,6 +510,7 @@ function MobileGroup({
         className="flex w-full items-center justify-between rounded-xl px-4 py-3 font-bold text-slate-700 hover:bg-blue-50"
       >
         {label}
+
         <ChevronDown
           className={`h-4 w-4 transition ${
             open ? "rotate-180" : ""
@@ -438,7 +522,7 @@ function MobileGroup({
         <div className="ml-3 border-l-2 border-blue-100 pl-3">
           {links.map((item) => (
             <Link
-              key={item.label}
+              key={`${item.href}-${item.label}`}
               href={item.href}
               onClick={close}
               className="block rounded-lg px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-[#2453d4]"

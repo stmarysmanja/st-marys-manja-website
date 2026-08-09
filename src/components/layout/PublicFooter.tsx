@@ -1,12 +1,35 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
+
+export interface FooterNavItem {
+  label: string;
+  href: string;
+}
 
 interface FooterProps {
   schoolName: string;
   location: string;
   phone: string;
   email: string;
+
+  badgeUrl: string;
+  badgeAlt: string;
+
+  footerDescription: string;
+
+  footerQuickTitle: string;
+  footerQuickLinks: FooterNavItem[];
+
+  footerMediaTitle: string;
+  footerMediaLinks: FooterNavItem[];
+
+  footerContactTitle: string;
+  footerCopyrightText: string;
 }
 
 export default function PublicFooter({
@@ -14,6 +37,20 @@ export default function PublicFooter({
   location,
   phone,
   email,
+
+  badgeUrl,
+  badgeAlt,
+
+  footerDescription,
+
+  footerQuickTitle,
+  footerQuickLinks,
+
+  footerMediaTitle,
+  footerMediaLinks,
+
+  footerContactTitle,
+  footerCopyrightText,
 }: FooterProps) {
   return (
     <footer className="bg-[#08296f] text-white">
@@ -21,44 +58,36 @@ export default function PublicFooter({
         <div>
           <div className="relative h-28 w-24 overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-white/20">
             <Image
-              src="/branding/school-badge.png"
-              alt="St. Mary's Secondary School Manja badge"
+              src={badgeUrl}
+              alt={badgeAlt}
               fill
               sizes="96px"
               className="object-contain p-2"
             />
           </div>
 
-          <h2 className="mt-5 text-xl font-extrabold">{schoolName}</h2>
+          <h2 className="mt-5 text-xl font-extrabold">
+            {schoolName}
+          </h2>
 
           <p className="mt-3 leading-7 text-blue-100">
-            Nurturing disciplined, responsible and academically excellent learners.
+            {footerDescription}
           </p>
         </div>
 
         <FooterColumn
-          title="Quick Links"
-          links={[
-            ["About Us", "/about"],
-            ["Academics", "/academics"],
-            ["Admissions", "/admissions"],
-            ["Contact", "/contact"],
-          ]}
+          title={footerQuickTitle}
+          links={footerQuickLinks}
         />
 
         <FooterColumn
-          title="Media"
-          links={[
-            ["Latest News", "/news"],
-            ["Gallery", "/gallery"],
-            ["Academic Life", "/academics#co-curricular"],
-            ["School Calendar", "/academics#calendar"],
-          ]}
+          title={footerMediaTitle}
+          links={footerMediaLinks}
         />
 
         <div>
           <h3 className="text-sm font-extrabold uppercase tracking-[0.16em] text-white">
-            Contact
+            {footerContactTitle}
           </h3>
 
           <div className="mt-5 space-y-4 text-sm text-blue-100">
@@ -87,7 +116,8 @@ export default function PublicFooter({
       </div>
 
       <div className="border-t border-white/10 px-4 py-5 text-center text-xs text-blue-200">
-        © {new Date().getFullYear()} {schoolName}. All rights reserved.
+        © {new Date().getFullYear()} {schoolName}.{" "}
+        {footerCopyrightText}
       </div>
     </footer>
   );
@@ -98,7 +128,7 @@ function FooterColumn({
   links,
 }: {
   title: string;
-  links: [string, string][];
+  links: FooterNavItem[];
 }) {
   return (
     <div>
@@ -107,13 +137,13 @@ function FooterColumn({
       </h3>
 
       <div className="mt-5 space-y-3">
-        {links.map(([label, href]) => (
+        {links.map((item) => (
           <Link
-            key={href}
-            href={href}
+            key={`${item.href}-${item.label}`}
+            href={item.href}
             className="block text-sm text-blue-100 hover:text-white"
           >
-            {label}
+            {item.label}
           </Link>
         ))}
       </div>
