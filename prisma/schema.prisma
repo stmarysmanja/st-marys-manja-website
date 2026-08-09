@@ -247,3 +247,14 @@ model AdmissionSettings {
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 }
+
+model GallerySettings {
+  id              Int      @id @default(1)
+  eyebrow         String   @default("School Life")
+  title           String   @default("School Gallery")
+  description     String   @default("Highlights of academic activities, sports events, educational trips and co-curricular life at St Mary's Secondary School-Manja.")
+  emptyTitle      String   @default("Gallery Coming Soon")
+  emptyText       String   @default("Photographs and videos will appear here after they are published from the Admin Portal.")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

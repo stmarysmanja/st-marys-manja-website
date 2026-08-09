@@ -9,6 +9,14 @@ import {
   useState,
 } from "react";
 
+
+interface GallerySettings {
+  eyebrow: string;
+  title: string;
+  description: string;
+  emptyTitle: string;
+  emptyText: string;
+}
 interface GalleryItem {
   id: number;
   title: string;
@@ -42,6 +50,9 @@ const emptyForm: GalleryForm = {
 
 export default function GalleryManagementPage() {
   const [items, setItems] = useState<GalleryItem[]>([]);
+  const [gallerySettings, setGallerySettings] =
+    useState<GallerySettings | null>(null);
+  const [savingSettings, setSavingSettings] = useState(false);
   const [form, setForm] = useState<GalleryForm>(emptyForm);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [filter, setFilter] = useState("All");
@@ -82,6 +93,71 @@ export default function GalleryManagementPage() {
     loadItems();
   }, [loadItems]);
 
+
+  const loadGallerySettings = useCallback(async () => {
+    try {
+      const response = await fetch("/api/gallery-settings", {
+        cache: "no-store",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Unable to load gallery settings.");
+      }
+
+      setGallerySettings(data);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to load gallery settings."
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    loadGallerySettings();
+  }, [loadGallerySettings]);
+
+  async function saveGallerySettings(
+    event: FormEvent<HTMLFormElement>
+  ) {
+    event.preventDefault();
+
+    if (!gallerySettings) return;
+
+    try {
+      setSavingSettings(true);
+      setMessage("");
+      setError("");
+
+      const response = await fetch("/api/gallery-settings", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(gallerySettings),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Unable to save gallery settings.");
+      }
+
+      setGallerySettings(data);
+      setMessage("Gallery page settings saved.");
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to save gallery settings."
+      );
+    } finally {
+      setSavingSettings(false);
+    }
+  }
   const categories = useMemo(() => {
     const values = Array.from(
       new Set(items.map((item) => item.category).filter(Boolean))
@@ -306,6 +382,100 @@ export default function GalleryManagementPage() {
         </p>
       </div>
 
+
+      {gallerySettings && (
+        <form
+          onSubmit={saveGallerySettings}
+          className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8"
+        >
+          <div className="flex flex-col gap-4 border-b border-slate-200 pb-5 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+                Public Website
+              </p>
+
+              <h2 className="mt-2 text-2xl font-extrabold text-blue-950">
+                Gallery Public Page Content
+              </h2>
+
+              <p className="mt-2 text-sm text-slate-500">
+                Edit the Gallery page heading and introductory text.
+              </p>
+            </div>
+
+            <button
+              type="submit"
+              disabled={savingSettings}
+              className="rounded-xl bg-green-600 px-6 py-3 font-extrabold text-white disabled:opacity-60"
+            >
+              {savingSettings ? "Saving..." : "Save Gallery Page"}
+            </button>
+          </div>
+
+          <div className="mt-6 grid gap-5 lg:grid-cols-2">
+            <Field
+              label="Small heading"
+              value={gallerySettings.eyebrow}
+              onChange={(value) =>
+                setGallerySettings({
+                  ...gallerySettings,
+                  eyebrow: value,
+                })
+              }
+            />
+
+            <Field
+              label="Main title"
+              value={gallerySettings.title}
+              onChange={(value) =>
+                setGallerySettings({
+                  ...gallerySettings,
+                  title: value,
+                })
+              }
+            />
+
+            <div className="lg:col-span-2">
+              <TextArea
+                label="Gallery description"
+                value={gallerySettings.description}
+                rows={4}
+                onChange={(value) =>
+                  setGallerySettings({
+                    ...gallerySettings,
+                    description: value,
+                  })
+                }
+              />
+            </div>
+
+            <Field
+              label="Empty Gallery title"
+              value={gallerySettings.emptyTitle}
+              onChange={(value) =>
+                setGallerySettings({
+                  ...gallerySettings,
+                  emptyTitle: value,
+                })
+              }
+            />
+
+            <div className="lg:col-span-2">
+              <TextArea
+                label="Empty Gallery message"
+                value={gallerySettings.emptyText}
+                rows={3}
+                onChange={(value) =>
+                  setGallerySettings({
+                    ...gallerySettings,
+                    emptyText: value,
+                  })
+                }
+              />
+            </div>
+          </div>
+        </form>
+      )}
       <div className="mt-8 grid gap-8 xl:grid-cols-[420px_1fr]">
         <form
           onSubmit={saveItem}
