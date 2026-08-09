@@ -74,26 +74,6 @@ const heroSlides = [
   },
 ];
 
-const values = [
-  {
-    label: "Our Mission",
-    icon: "M",
-    text: "To produce practical, responsible citizens with high academic standards and moral values.",
-    featured: false,
-  },
-  {
-    label: "Our Motto",
-    icon: "M",
-    text: "We Learn by Doing",
-    featured: true,
-  },
-  {
-    label: "Our Vision",
-    icon: "V",
-    text: "To be a Centre of Excellence all Round Achievers.",
-    featured: false,
-  },
-];
 
 const academicLife = [
   {
@@ -129,32 +109,93 @@ const academicLife = [
 ];
 
 export default async function HomePage() {
-  const contact = await prisma.contactSettings.findUnique({
-    where: { id: 1 },
-  });
+  const [websiteSettings, contact] = await Promise.all([
+    prisma.websiteSettings.findUnique({
+      where: { id: 1 },
+    }),
+    prisma.contactSettings.findUnique({
+      where: { id: 1 },
+    }),
+  ]);
 
   const phones = contact
     ? (JSON.parse(contact.phones) as string[])
     : [];
 
   const phone = phones[0] || "+256 700 240 640";
+
+const emails = contact
+  ? (JSON.parse(contact.emails) as string[])
+  : [];
+
+const email = emails[0] || "info@stmarysmanja.sc.ug";
+
+const schoolName =
+  websiteSettings?.schoolName || "St Mary's Secondary School-Manja";
+
+const heroTitle =
+  websiteSettings?.heroTitle || schoolName;
+
+const heroSubtitle =
+  websiteSettings?.heroSubtitle || "Manja | Excellence & Virtue";
+
+const centreCode =
+  websiteSettings?.centreCode || "ST MARYS MANJA";
+
+const admissionsText =
+  websiteSettings?.admissionsText || "Apply for Admission";
+
+const admissionsLink =
+  websiteSettings?.admissionsLink || "/admissions";
+
+const whatsappNumber =
+  websiteSettings?.whatsappNumber || "256700240640";
+
+const location =
+  contact?.location || "Manja, Uganda";
+  const values = [
+    {
+      label: "Our Mission",
+      icon: "M",
+      text:
+        websiteSettings?.mission ||
+        "To produce practical, responsible citizens with high academic standards and moral values.",
+      featured: false,
+    },
+    {
+      label: "Our Motto",
+      icon: "M",
+      text:
+        websiteSettings?.motto ||
+        "We Learn by Doing",
+      featured: true,
+    },
+    {
+      label: "Our Vision",
+      icon: "V",
+      text:
+        websiteSettings?.vision ||
+        "To be a Centre of Excellence all Round Achievers.",
+      featured: false,
+    },
+  ];
   return (
     <>
       <PublicHeader
-        schoolName="St Mary's Secondary School-Manja"
+        schoolName={schoolName}
         phone={phone}
-        email="ashirafkyu@gmail.com"
+        email={email}
       />
 
       <main>
         <HomeHero
           slides={heroSlides}
-          heroTitle="St. Mary's Secondary School"
-          heroSubtitle="Manja | Excellence & Virtue"
-          centreCode="ST MARYS MANJA"
-          admissionsText="Apply for Admission"
-          admissionsLink="/admissions"
-          whatsappNumber="256700240640"
+          heroTitle={heroTitle}
+          heroSubtitle={heroSubtitle}
+          centreCode={centreCode}
+          admissionsText={admissionsText}
+          admissionsLink={admissionsLink}
+          whatsappNumber={whatsappNumber}
         />
 
         <section className="relative overflow-hidden bg-slate-50 pb-20">
@@ -233,7 +274,7 @@ export default async function HomePage() {
           <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 lg:grid-cols-2">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.25em] text-[#2453d4]">
-                Welcome to St. Mary&apos;s
+                {websiteSettings?.introductionTitle || "Welcome to St Mary's Secondary School-Manja"}
               </p>
 
               <h2
@@ -244,16 +285,14 @@ export default async function HomePage() {
               </h2>
 
               <p className="mt-6 text-lg leading-8 text-slate-600">
-                St Mary&apos;s Secondary School-Manja is committed to
-                practical education, discipline, academic excellence and the
-                development of every learner&apos;s talents.
+                {websiteSettings?.introductionText || "St Mary's Secondary School-Manja is committed to practical education, discipline, academic excellence and the development of every learner's talents."}
               </p>
 
               <Link
                 href="/about"
                 className="mt-8 inline-flex rounded-xl bg-[#2453d4] px-7 py-4 font-bold text-white transition hover:-translate-y-1 hover:bg-[#08296f]"
               >
-                Discover Our School →
+                Discover Our School ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¾ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢
               </Link>
             </div>
 
@@ -359,10 +398,10 @@ export default async function HomePage() {
       </main>
 
       <PublicFooter
-        schoolName="St Mary's Secondary School-Manja"
-        location="Manja, Uganda"
+        schoolName={schoolName}
+        location={location}
         phone={phone}
-        email="ashirafkyu@gmail.com"
+        email={email}
       />
     </>
   );
