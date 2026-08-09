@@ -32,6 +32,22 @@ model WebsiteSettings {
   introductionMediaType String @default("image")
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
+    valuesEyebrow              String @default("Our Values")
+  valuesDescription          String @default("The pillars that guide us in nurturing disciplined, responsible and successful citizens.")
+  introductionButtonText     String @default("Discover Our School")
+  introductionButtonLink     String @default("/about")
+  academicLifeEyebrow        String @default("Learning in Action")
+  academicLifeTitle          String @default("Academic and Student Life")
+  academicLifeDescription    String @default("Our students learn through classroom teaching, field studies, educational tours, culture and community participation.")
+  academicLifeButtonText     String @default("Explore Our Academics")
+  academicLifeButtonLink     String @default("/academics")
+  admissionsEyebrow          String @default("Admissions Open")
+  admissionsHeading          String @default("Join St Mary's Secondary School-Manja")
+  admissionsDescription      String @default("Begin your journey in a disciplined, supportive and academically focused school community.")
+  admissionsPrimaryText      String @default("Apply Now")
+  admissionsPrimaryLink      String @default("/admissions")
+  admissionsSecondaryText    String @default("Contact the School")
+  admissionsSecondaryLink    String @default("/contact")
 }
 
 model LeadershipMember {
