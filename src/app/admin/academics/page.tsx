@@ -25,6 +25,18 @@ interface Settings {
   subjectsText: string;
   performanceText: string;
   calendarText: string;
+  heroEyebrow: string;
+  oLevelButtonText: string;
+  oLevelButtonLink: string;
+  aLevelButtonText: string;
+  aLevelButtonLink: string;
+  academicLifeEyebrow: string;
+  academicLifeTitle: string;
+  academicLifeDescription: string;
+  departmentsTitle: string;
+  subjectsTitle: string;
+  performanceTitle: string;
+  calendarTitle: string;
 }
 
 interface LifeItem {
@@ -41,7 +53,7 @@ interface LifeItem {
 const emptyItem = {
   title: "",
   description: "",
-  icon: "ðŸ“š",
+  icon: "Book",
   mediaUrl: "",
   mediaType: "image",
   displayOrder: 0,
@@ -324,8 +336,1477 @@ export default function AcademicsAdminPage() {
               </div>
             )}
           </div>
+          <div className="lg:col-span-2 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <h3 className="text-lg font-extrabold text-blue-950">
+              Additional Academic Page Controls
+            </h3>
 
-          <Field
+            <p className="mt-1 text-sm text-slate-600">
+              Edit section labels, buttons and information panel titles.
+            </p>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-2">
+
+              <Field
+                label="Hero small heading"
+                value={settings.heroEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, heroEyebrow: value })
+                }
+              />
+
+              <Field
+                label="O-Level button text"
+                value={settings.oLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="O-Level button link"
+                value={settings.oLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="A-Level button text"
+                value={settings.aLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="A-Level button link"
+                value={settings.aLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="Academic Life small heading"
+                value={settings.academicLifeEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeEyebrow: value })
+                }
+              />
+
+              <Field
+                label="Academic Life title"
+                value={settings.academicLifeTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeTitle: value })
+                }
+              />
+
+              <TextArea
+                label="Academic Life description"
+                value={settings.academicLifeDescription || ""}
+                onChange={(value) =>
+                  setSettings({
+                    ...settings,
+                    academicLifeDescription: value
+                  })
+                }
+              />
+
+              <Field
+                label="Departments panel title"
+                value={settings.departmentsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, departmentsTitle: value })
+                }
+              />
+
+              <Field
+                label="Subjects panel title"
+                value={settings.subjectsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, subjectsTitle: value })
+                }
+              />
+
+              <Field
+                label="Performance panel title"
+                value={settings.performanceTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, performanceTitle: value })
+                }
+              />
+
+              <Field
+                label="Calendar panel title"
+                value={settings.calendarTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, calendarTitle: value })
+                }
+              />
+
+            </div>
+          </div>
+
+
+          <div className="lg:col-span-2 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <h3 className="text-lg font-extrabold text-blue-950">
+              Additional Academic Page Controls
+            </h3>
+
+            <p className="mt-1 text-sm text-slate-600">
+              Edit section labels, buttons and information panel titles.
+            </p>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-2">
+
+              <Field
+                label="Hero small heading"
+                value={settings.heroEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, heroEyebrow: value })
+                }
+              />
+
+              <Field
+                label="O-Level button text"
+                value={settings.oLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="O-Level button link"
+                value={settings.oLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="A-Level button text"
+                value={settings.aLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="A-Level button link"
+                value={settings.aLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="Academic Life small heading"
+                value={settings.academicLifeEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeEyebrow: value })
+                }
+              />
+
+              <Field
+                label="Academic Life title"
+                value={settings.academicLifeTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeTitle: value })
+                }
+              />
+
+              <TextArea
+                label="Academic Life description"
+                value={settings.academicLifeDescription || ""}
+                onChange={(value) =>
+                  setSettings({
+                    ...settings,
+                    academicLifeDescription: value
+                  })
+                }
+              />
+
+              <Field
+                label="Departments panel title"
+                value={settings.departmentsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, departmentsTitle: value })
+                }
+              />
+
+              <Field
+                label="Subjects panel title"
+                value={settings.subjectsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, subjectsTitle: value })
+                }
+              />
+
+              <Field
+                label="Performance panel title"
+                value={settings.performanceTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, performanceTitle: value })
+                }
+              />
+
+              <Field
+                label="Calendar panel title"
+                value={settings.calendarTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, calendarTitle: value })
+                }
+              />
+
+            </div>
+          </div>
+
+
+          <div className="lg:col-span-2 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <h3 className="text-lg font-extrabold text-blue-950">
+              Additional Academic Page Controls
+            </h3>
+
+            <p className="mt-1 text-sm text-slate-600">
+              Edit section labels, buttons and information panel titles.
+            </p>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-2">
+
+              <Field
+                label="Hero small heading"
+                value={settings.heroEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, heroEyebrow: value })
+                }
+              />
+
+              <Field
+                label="O-Level button text"
+                value={settings.oLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="O-Level button link"
+                value={settings.oLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="A-Level button text"
+                value={settings.aLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="A-Level button link"
+                value={settings.aLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="Academic Life small heading"
+                value={settings.academicLifeEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeEyebrow: value })
+                }
+              />
+
+              <Field
+                label="Academic Life title"
+                value={settings.academicLifeTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeTitle: value })
+                }
+              />
+
+              <TextArea
+                label="Academic Life description"
+                value={settings.academicLifeDescription || ""}
+                onChange={(value) =>
+                  setSettings({
+                    ...settings,
+                    academicLifeDescription: value
+                  })
+                }
+              />
+
+              <Field
+                label="Departments panel title"
+                value={settings.departmentsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, departmentsTitle: value })
+                }
+              />
+
+              <Field
+                label="Subjects panel title"
+                value={settings.subjectsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, subjectsTitle: value })
+                }
+              />
+
+              <Field
+                label="Performance panel title"
+                value={settings.performanceTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, performanceTitle: value })
+                }
+              />
+
+              <Field
+                label="Calendar panel title"
+                value={settings.calendarTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, calendarTitle: value })
+                }
+              />
+
+            </div>
+          </div>
+ 
+          <div className="lg:col-span-2 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <h3 className="text-lg font-extrabold text-blue-950">
+              Additional Academic Page Controls
+            </h3>
+
+            <p className="mt-1 text-sm text-slate-600">
+              Edit section labels, buttons and information panel titles.
+            </p>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-2">
+
+              <Field
+                label="Hero small heading"
+                value={settings.heroEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, heroEyebrow: value })
+                }
+              />
+
+              <Field
+                label="O-Level button text"
+                value={settings.oLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="O-Level button link"
+                value={settings.oLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="A-Level button text"
+                value={settings.aLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="A-Level button link"
+                value={settings.aLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="Academic Life small heading"
+                value={settings.academicLifeEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeEyebrow: value })
+                }
+              />
+
+              <Field
+                label="Academic Life title"
+                value={settings.academicLifeTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeTitle: value })
+                }
+              />
+
+              <TextArea
+                label="Academic Life description"
+                value={settings.academicLifeDescription || ""}
+                onChange={(value) =>
+                  setSettings({
+                    ...settings,
+                    academicLifeDescription: value
+                  })
+                }
+              />
+
+              <Field
+                label="Departments panel title"
+                value={settings.departmentsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, departmentsTitle: value })
+                }
+              />
+
+              <Field
+                label="Subjects panel title"
+                value={settings.subjectsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, subjectsTitle: value })
+                }
+              />
+
+              <Field
+                label="Performance panel title"
+                value={settings.performanceTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, performanceTitle: value })
+                }
+              />
+
+              <Field
+                label="Calendar panel title"
+                value={settings.calendarTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, calendarTitle: value })
+                }
+              />
+
+            </div>
+          </div>
+ 
+          <div className="lg:col-span-2 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <h3 className="text-lg font-extrabold text-blue-950">
+              Additional Academic Page Controls
+            </h3>
+
+            <p className="mt-1 text-sm text-slate-600">
+              Edit section labels, buttons and information panel titles.
+            </p>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-2">
+
+              <Field
+                label="Hero small heading"
+                value={settings.heroEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, heroEyebrow: value })
+                }
+              />
+
+              <Field
+                label="O-Level button text"
+                value={settings.oLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="O-Level button link"
+                value={settings.oLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="A-Level button text"
+                value={settings.aLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="A-Level button link"
+                value={settings.aLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="Academic Life small heading"
+                value={settings.academicLifeEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeEyebrow: value })
+                }
+              />
+
+              <Field
+                label="Academic Life title"
+                value={settings.academicLifeTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeTitle: value })
+                }
+              />
+
+              <TextArea
+                label="Academic Life description"
+                value={settings.academicLifeDescription || ""}
+                onChange={(value) =>
+                  setSettings({
+                    ...settings,
+                    academicLifeDescription: value
+                  })
+                }
+              />
+
+              <Field
+                label="Departments panel title"
+                value={settings.departmentsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, departmentsTitle: value })
+                }
+              />
+
+              <Field
+                label="Subjects panel title"
+                value={settings.subjectsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, subjectsTitle: value })
+                }
+              />
+
+              <Field
+                label="Performance panel title"
+                value={settings.performanceTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, performanceTitle: value })
+                }
+              />
+
+              <Field
+                label="Calendar panel title"
+                value={settings.calendarTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, calendarTitle: value })
+                }
+              />
+
+            </div>
+          </div>
+ 
+          <div className="lg:col-span-2 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <h3 className="text-lg font-extrabold text-blue-950">
+              Additional Academic Page Controls
+            </h3>
+
+            <p className="mt-1 text-sm text-slate-600">
+              Edit section labels, buttons and information panel titles.
+            </p>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-2">
+
+              <Field
+                label="Hero small heading"
+                value={settings.heroEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, heroEyebrow: value })
+                }
+              />
+
+              <Field
+                label="O-Level button text"
+                value={settings.oLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="O-Level button link"
+                value={settings.oLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="A-Level button text"
+                value={settings.aLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="A-Level button link"
+                value={settings.aLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="Academic Life small heading"
+                value={settings.academicLifeEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeEyebrow: value })
+                }
+              />
+
+              <Field
+                label="Academic Life title"
+                value={settings.academicLifeTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeTitle: value })
+                }
+              />
+
+              <TextArea
+                label="Academic Life description"
+                value={settings.academicLifeDescription || ""}
+                onChange={(value) =>
+                  setSettings({
+                    ...settings,
+                    academicLifeDescription: value
+                  })
+                }
+              />
+
+              <Field
+                label="Departments panel title"
+                value={settings.departmentsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, departmentsTitle: value })
+                }
+              />
+
+              <Field
+                label="Subjects panel title"
+                value={settings.subjectsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, subjectsTitle: value })
+                }
+              />
+
+              <Field
+                label="Performance panel title"
+                value={settings.performanceTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, performanceTitle: value })
+                }
+              />
+
+              <Field
+                label="Calendar panel title"
+                value={settings.calendarTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, calendarTitle: value })
+                }
+              />
+
+            </div>
+          </div>
+ 
+          <div className="lg:col-span-2 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <h3 className="text-lg font-extrabold text-blue-950">
+              Additional Academic Page Controls
+            </h3>
+
+            <p className="mt-1 text-sm text-slate-600">
+              Edit section labels, buttons and information panel titles.
+            </p>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-2">
+
+              <Field
+                label="Hero small heading"
+                value={settings.heroEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, heroEyebrow: value })
+                }
+              />
+
+              <Field
+                label="O-Level button text"
+                value={settings.oLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="O-Level button link"
+                value={settings.oLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="A-Level button text"
+                value={settings.aLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="A-Level button link"
+                value={settings.aLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="Academic Life small heading"
+                value={settings.academicLifeEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeEyebrow: value })
+                }
+              />
+
+              <Field
+                label="Academic Life title"
+                value={settings.academicLifeTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeTitle: value })
+                }
+              />
+
+              <TextArea
+                label="Academic Life description"
+                value={settings.academicLifeDescription || ""}
+                onChange={(value) =>
+                  setSettings({
+                    ...settings,
+                    academicLifeDescription: value
+                  })
+                }
+              />
+
+              <Field
+                label="Departments panel title"
+                value={settings.departmentsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, departmentsTitle: value })
+                }
+              />
+
+              <Field
+                label="Subjects panel title"
+                value={settings.subjectsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, subjectsTitle: value })
+                }
+              />
+
+              <Field
+                label="Performance panel title"
+                value={settings.performanceTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, performanceTitle: value })
+                }
+              />
+
+              <Field
+                label="Calendar panel title"
+                value={settings.calendarTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, calendarTitle: value })
+                }
+              />
+
+            </div>
+          </div>
+ 
+          <div className="lg:col-span-2 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <h3 className="text-lg font-extrabold text-blue-950">
+              Additional Academic Page Controls
+            </h3>
+
+            <p className="mt-1 text-sm text-slate-600">
+              Edit section labels, buttons and information panel titles.
+            </p>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-2">
+
+              <Field
+                label="Hero small heading"
+                value={settings.heroEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, heroEyebrow: value })
+                }
+              />
+
+              <Field
+                label="O-Level button text"
+                value={settings.oLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="O-Level button link"
+                value={settings.oLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="A-Level button text"
+                value={settings.aLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="A-Level button link"
+                value={settings.aLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="Academic Life small heading"
+                value={settings.academicLifeEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeEyebrow: value })
+                }
+              />
+
+              <Field
+                label="Academic Life title"
+                value={settings.academicLifeTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeTitle: value })
+                }
+              />
+
+              <TextArea
+                label="Academic Life description"
+                value={settings.academicLifeDescription || ""}
+                onChange={(value) =>
+                  setSettings({
+                    ...settings,
+                    academicLifeDescription: value
+                  })
+                }
+              />
+
+              <Field
+                label="Departments panel title"
+                value={settings.departmentsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, departmentsTitle: value })
+                }
+              />
+
+              <Field
+                label="Subjects panel title"
+                value={settings.subjectsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, subjectsTitle: value })
+                }
+              />
+
+              <Field
+                label="Performance panel title"
+                value={settings.performanceTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, performanceTitle: value })
+                }
+              />
+
+              <Field
+                label="Calendar panel title"
+                value={settings.calendarTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, calendarTitle: value })
+                }
+              />
+
+            </div>
+          </div>
+ 
+          <div className="lg:col-span-2 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <h3 className="text-lg font-extrabold text-blue-950">
+              Additional Academic Page Controls
+            </h3>
+
+            <p className="mt-1 text-sm text-slate-600">
+              Edit section labels, buttons and information panel titles.
+            </p>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-2">
+
+              <Field
+                label="Hero small heading"
+                value={settings.heroEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, heroEyebrow: value })
+                }
+              />
+
+              <Field
+                label="O-Level button text"
+                value={settings.oLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="O-Level button link"
+                value={settings.oLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="A-Level button text"
+                value={settings.aLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="A-Level button link"
+                value={settings.aLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="Academic Life small heading"
+                value={settings.academicLifeEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeEyebrow: value })
+                }
+              />
+
+              <Field
+                label="Academic Life title"
+                value={settings.academicLifeTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeTitle: value })
+                }
+              />
+
+              <TextArea
+                label="Academic Life description"
+                value={settings.academicLifeDescription || ""}
+                onChange={(value) =>
+                  setSettings({
+                    ...settings,
+                    academicLifeDescription: value
+                  })
+                }
+              />
+
+              <Field
+                label="Departments panel title"
+                value={settings.departmentsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, departmentsTitle: value })
+                }
+              />
+
+              <Field
+                label="Subjects panel title"
+                value={settings.subjectsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, subjectsTitle: value })
+                }
+              />
+
+              <Field
+                label="Performance panel title"
+                value={settings.performanceTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, performanceTitle: value })
+                }
+              />
+
+              <Field
+                label="Calendar panel title"
+                value={settings.calendarTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, calendarTitle: value })
+                }
+              />
+
+            </div>
+          </div>
+ 
+          <div className="lg:col-span-2 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <h3 className="text-lg font-extrabold text-blue-950">
+              Additional Academic Page Controls
+            </h3>
+
+            <p className="mt-1 text-sm text-slate-600">
+              Edit section labels, buttons and information panel titles.
+            </p>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-2">
+
+              <Field
+                label="Hero small heading"
+                value={settings.heroEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, heroEyebrow: value })
+                }
+              />
+
+              <Field
+                label="O-Level button text"
+                value={settings.oLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="O-Level button link"
+                value={settings.oLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="A-Level button text"
+                value={settings.aLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="A-Level button link"
+                value={settings.aLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="Academic Life small heading"
+                value={settings.academicLifeEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeEyebrow: value })
+                }
+              />
+
+              <Field
+                label="Academic Life title"
+                value={settings.academicLifeTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeTitle: value })
+                }
+              />
+
+              <TextArea
+                label="Academic Life description"
+                value={settings.academicLifeDescription || ""}
+                onChange={(value) =>
+                  setSettings({
+                    ...settings,
+                    academicLifeDescription: value
+                  })
+                }
+              />
+
+              <Field
+                label="Departments panel title"
+                value={settings.departmentsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, departmentsTitle: value })
+                }
+              />
+
+              <Field
+                label="Subjects panel title"
+                value={settings.subjectsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, subjectsTitle: value })
+                }
+              />
+
+              <Field
+                label="Performance panel title"
+                value={settings.performanceTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, performanceTitle: value })
+                }
+              />
+
+              <Field
+                label="Calendar panel title"
+                value={settings.calendarTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, calendarTitle: value })
+                }
+              />
+
+            </div>
+          </div>
+ 
+          <div className="lg:col-span-2 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <h3 className="text-lg font-extrabold text-blue-950">
+              Additional Academic Page Controls
+            </h3>
+
+            <p className="mt-1 text-sm text-slate-600">
+              Edit section labels, buttons and information panel titles.
+            </p>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-2">
+
+              <Field
+                label="Hero small heading"
+                value={settings.heroEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, heroEyebrow: value })
+                }
+              />
+
+              <Field
+                label="O-Level button text"
+                value={settings.oLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="O-Level button link"
+                value={settings.oLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="A-Level button text"
+                value={settings.aLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="A-Level button link"
+                value={settings.aLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="Academic Life small heading"
+                value={settings.academicLifeEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeEyebrow: value })
+                }
+              />
+
+              <Field
+                label="Academic Life title"
+                value={settings.academicLifeTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeTitle: value })
+                }
+              />
+
+              <TextArea
+                label="Academic Life description"
+                value={settings.academicLifeDescription || ""}
+                onChange={(value) =>
+                  setSettings({
+                    ...settings,
+                    academicLifeDescription: value
+                  })
+                }
+              />
+
+              <Field
+                label="Departments panel title"
+                value={settings.departmentsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, departmentsTitle: value })
+                }
+              />
+
+              <Field
+                label="Subjects panel title"
+                value={settings.subjectsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, subjectsTitle: value })
+                }
+              />
+
+              <Field
+                label="Performance panel title"
+                value={settings.performanceTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, performanceTitle: value })
+                }
+              />
+
+              <Field
+                label="Calendar panel title"
+                value={settings.calendarTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, calendarTitle: value })
+                }
+              />
+
+            </div>
+          </div>
+ 
+          <div className="lg:col-span-2 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <h3 className="text-lg font-extrabold text-blue-950">
+              Additional Academic Page Controls
+            </h3>
+
+            <p className="mt-1 text-sm text-slate-600">
+              Edit section labels, buttons and information panel titles.
+            </p>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-2">
+
+              <Field
+                label="Hero small heading"
+                value={settings.heroEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, heroEyebrow: value })
+                }
+              />
+
+              <Field
+                label="O-Level button text"
+                value={settings.oLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="O-Level button link"
+                value={settings.oLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="A-Level button text"
+                value={settings.aLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="A-Level button link"
+                value={settings.aLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="Academic Life small heading"
+                value={settings.academicLifeEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeEyebrow: value })
+                }
+              />
+
+              <Field
+                label="Academic Life title"
+                value={settings.academicLifeTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeTitle: value })
+                }
+              />
+
+              <TextArea
+                label="Academic Life description"
+                value={settings.academicLifeDescription || ""}
+                onChange={(value) =>
+                  setSettings({
+                    ...settings,
+                    academicLifeDescription: value
+                  })
+                }
+              />
+
+              <Field
+                label="Departments panel title"
+                value={settings.departmentsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, departmentsTitle: value })
+                }
+              />
+
+              <Field
+                label="Subjects panel title"
+                value={settings.subjectsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, subjectsTitle: value })
+                }
+              />
+
+              <Field
+                label="Performance panel title"
+                value={settings.performanceTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, performanceTitle: value })
+                }
+              />
+
+              <Field
+                label="Calendar panel title"
+                value={settings.calendarTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, calendarTitle: value })
+                }
+              />
+
+            </div>
+          </div>
+ 
+          <div className="lg:col-span-2 rounded-2xl border border-blue-100 bg-blue-50 p-5">
+            <h3 className="text-lg font-extrabold text-blue-950">
+              Additional Academic Page Controls
+            </h3>
+
+            <p className="mt-1 text-sm text-slate-600">
+              Edit section labels, buttons and information panel titles.
+            </p>
+
+            <div className="mt-5 grid gap-5 lg:grid-cols-2">
+
+              <Field
+                label="Hero small heading"
+                value={settings.heroEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, heroEyebrow: value })
+                }
+              />
+
+              <Field
+                label="O-Level button text"
+                value={settings.oLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="O-Level button link"
+                value={settings.oLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, oLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="A-Level button text"
+                value={settings.aLevelButtonText || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonText: value })
+                }
+              />
+
+              <Field
+                label="A-Level button link"
+                value={settings.aLevelButtonLink || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, aLevelButtonLink: value })
+                }
+              />
+
+              <Field
+                label="Academic Life small heading"
+                value={settings.academicLifeEyebrow || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeEyebrow: value })
+                }
+              />
+
+              <Field
+                label="Academic Life title"
+                value={settings.academicLifeTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, academicLifeTitle: value })
+                }
+              />
+
+              <TextArea
+                label="Academic Life description"
+                value={settings.academicLifeDescription || ""}
+                onChange={(value) =>
+                  setSettings({
+                    ...settings,
+                    academicLifeDescription: value
+                  })
+                }
+              />
+
+              <Field
+                label="Departments panel title"
+                value={settings.departmentsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, departmentsTitle: value })
+                }
+              />
+
+              <Field
+                label="Subjects panel title"
+                value={settings.subjectsTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, subjectsTitle: value })
+                }
+              />
+
+              <Field
+                label="Performance panel title"
+                value={settings.performanceTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, performanceTitle: value })
+                }
+              />
+
+              <Field
+                label="Calendar panel title"
+                value={settings.calendarTitle || ""}
+                onChange={(value) =>
+                  setSettings({ ...settings, calendarTitle: value })
+                }
+              />
+
+            </div>
+          </div>
+<Field
             label="O-Level title"
             value={settings.oLevelTitle}
             onChange={(value) => setSettings({ ...settings, oLevelTitle: value })}

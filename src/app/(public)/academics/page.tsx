@@ -53,26 +53,26 @@ export default async function AcademicsPage() {
   const panels = [
     {
       id: "departments",
-      icon: "🏛️",
-      title: "Academic Departments",
+      icon: "D",
+      title: settings.departmentsTitle,
       text: settings.departmentsText,
     },
     {
       id: "subjects",
-      icon: "📚",
-      title: "Subjects Offered",
+      icon: "S",
+      title: settings.subjectsTitle,
       text: settings.subjectsText,
     },
     {
       id: "performance",
-      icon: "📊",
-      title: "Academic Performance",
+      icon: "P",
+      title: settings.performanceTitle,
       text: settings.performanceText,
     },
     {
       id: "calendar",
-      icon: "📅",
-      title: "School Calendar",
+      icon: "C",
+      title: settings.calendarTitle,
       text: settings.calendarText,
     },
   ];
@@ -101,9 +101,7 @@ export default async function AcademicsPage() {
         <div className="absolute inset-0 bg-blue-950/65" />
 
         <div className="relative z-10 mx-auto max-w-4xl px-4 text-center text-white">
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-amber-300">
-            Learning for Life
-          </p>
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-amber-300">{settings.heroEyebrow}</p>
           <h1 className="mt-4 text-4xl font-extrabold uppercase tracking-tight md:text-6xl">
             {settings.heroTitle}
           </h1>
@@ -122,7 +120,7 @@ export default async function AcademicsPage() {
           >
             <div className="flex items-start gap-4">
               <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-blue-800 text-3xl text-white shadow-lg">
-                📖
+                O
               </div>
               <div>
                 <h2 className="text-2xl font-extrabold text-blue-950 md:text-3xl">
@@ -147,11 +145,9 @@ export default async function AcademicsPage() {
             </ul>
 
             <Link
-              href="#subjects"
+              href={settings.oLevelButtonLink}
               className="mt-7 inline-flex rounded-xl bg-blue-800 px-6 py-3 font-bold text-white shadow transition hover:-translate-y-1 hover:bg-blue-900"
-            >
-              Learn More
-            </Link>
+            >{settings.oLevelButtonText}</Link>
           </article>
 
           <article
@@ -160,7 +156,7 @@ export default async function AcademicsPage() {
           >
             <div className="flex items-start gap-4">
               <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-amber-400 text-3xl text-blue-950 shadow-lg">
-                🎓
+                A
               </div>
               <div>
                 <h2 className="text-2xl font-extrabold text-blue-950 md:text-3xl">
@@ -189,11 +185,9 @@ export default async function AcademicsPage() {
             </div>
 
             <Link
-              href="#subjects"
+              href={settings.oLevelButtonLink}
               className="mt-7 inline-flex rounded-xl bg-blue-800 px-6 py-3 font-bold text-white shadow transition hover:-translate-y-1 hover:bg-blue-900"
-            >
-              Learn More
-            </Link>
+            >{settings.oLevelButtonText}</Link>
           </article>
         </div>
       </section>
@@ -201,15 +195,11 @@ export default async function AcademicsPage() {
       <section id="co-curricular" className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4">
           <div className="text-center">
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-blue-600">
-              Learning in Action
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-blue-950 md:text-4xl">
-              Academic Life
-            </h2>
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-blue-600">{settings.academicLifeEyebrow}</p>
+            <h2 className="mt-3 text-3xl font-extrabold text-blue-950 md:text-4xl">{settings.academicLifeTitle}</h2>
             <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-amber-400" />
             <p className="mx-auto mt-5 max-w-2xl leading-7 text-slate-600">
-              A glimpse into the learning experiences and opportunities that shape our students every day.
+              {settings.academicLifeDescription}
             </p>
           </div>
 
@@ -284,7 +274,7 @@ export default async function AcademicsPage() {
                   </div>
                 </div>
                 <span className="text-xl font-bold text-blue-950 transition group-open:rotate-180">
-                  ⌄
+                  âŒ„
                 </span>
               </summary>
 

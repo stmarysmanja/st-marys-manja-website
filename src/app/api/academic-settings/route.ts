@@ -72,6 +72,18 @@ export async function PUT(request: NextRequest) {
       subjectsText: String(body.subjectsText || "").trim(),
       performanceText: String(body.performanceText || "").trim(),
       calendarText: String(body.calendarText || "").trim(),
+      heroEyebrow: String(body.heroEyebrow || "").trim(),
+      oLevelButtonText: String(body.oLevelButtonText || "").trim(),
+      oLevelButtonLink: String(body.oLevelButtonLink || "").trim(),
+      aLevelButtonText: String(body.aLevelButtonText || "").trim(),
+      aLevelButtonLink: String(body.aLevelButtonLink || "").trim(),
+      academicLifeEyebrow: String(body.academicLifeEyebrow || "").trim(),
+      academicLifeTitle: String(body.academicLifeTitle || "").trim(),
+      academicLifeDescription: String(body.academicLifeDescription || "").trim(),
+      departmentsTitle: String(body.departmentsTitle || "").trim(),
+      subjectsTitle: String(body.subjectsTitle || "").trim(),
+      performanceTitle: String(body.performanceTitle || "").trim(),
+      calendarTitle: String(body.calendarTitle || "").trim(),
     };
 
     const settings = await prisma.academicSettings.upsert({

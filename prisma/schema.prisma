@@ -185,6 +185,18 @@ model AcademicSettings {
   subjectsText       String
   performanceText    String
   calendarText       String
+  heroEyebrow              String @default("Learning for Life")
+  oLevelButtonText         String @default("Learn More")
+  oLevelButtonLink         String @default("#subjects")
+  aLevelButtonText         String @default("Learn More")
+  aLevelButtonLink         String @default("#subjects")
+  academicLifeEyebrow      String @default("Learning in Action")
+  academicLifeTitle        String @default("Academic Life")
+  academicLifeDescription  String @default("A glimpse into the learning experiences and opportunities that shape our students every day.")
+  departmentsTitle         String @default("Academic Departments")
+  subjectsTitle            String @default("Subjects Offered")
+  performanceTitle         String @default("Academic Performance")
+  calendarTitle            String @default("School Calendar")
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 }
@@ -193,7 +205,7 @@ model AcademicLifeItem {
   id           Int      @id @default(autoincrement())
   title        String
   description  String
-  icon         String   @default("ÃƒÆ’Ã‚Â°Ãƒâ€¦Ã‚Â¸ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œÃƒâ€¦Ã‚Â¡")
+  icon         String   @default("Book")
   mediaUrl     String
   mediaType    String   @default("image")
   displayOrder Int      @default(0)

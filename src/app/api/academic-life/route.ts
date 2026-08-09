@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       data: {
         title: String(body.title).trim(),
         description: String(body.description).trim(),
-        icon: String(body.icon || "📚").trim() || "📚",
+        icon: String(body.icon || "Book").trim() || "Book",
         mediaUrl: String(body.mediaUrl).trim(),
         mediaType: body.mediaType === "video" ? "video" : "image",
         displayOrder: Number.isFinite(Number(body.displayOrder))
