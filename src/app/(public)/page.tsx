@@ -4,73 +4,6 @@ import HomeHero from "@/components/home/HomeHero";
 
 export const dynamic = "force-dynamic";
 
-const heroSlides = [
-  {
-    id: 1,
-    imageUrl: "/uploads/hero-initial/01-welcome-tour.jpg",
-    altText: "St. Mary's students during an educational tour",
-    mediaType: "image",
-    title: "Welcome to St. Mary's",
-    subtitle: "Learning, discipline and discovery beyond the classroom.",
-    buttonText: "Apply for Admission",
-    buttonLink: "/admissions",
-  },
-  {
-    id: 2,
-    imageUrl: "/uploads/hero-initial/02-tea-factory.jpg",
-    altText: "Students visiting Igara Tea Factory",
-    mediaType: "image",
-    title: "Learning Beyond the Classroom",
-    subtitle:
-      "Educational tours connect classroom knowledge with the world of work.",
-    buttonText: "Explore Academics",
-    buttonLink: "/academics",
-  },
-  {
-    id: 3,
-    imageUrl: "/uploads/hero-initial/03-fieldwork.jpg",
-    altText: "Students participating in fieldwork",
-    mediaType: "image",
-    title: "Experiential Learning",
-    subtitle:
-      "Our learners investigate, observe and apply knowledge in real environments.",
-    buttonText: "View Academic Life",
-    buttonLink: "/academics#co-curricular",
-  },
-  {
-    id: 4,
-    imageUrl: "/uploads/hero-initial/04-mdd-culture.jpg",
-    altText: "Students participating in music dance and drama",
-    mediaType: "image",
-    title: "Culture, Creativity and Talent",
-    subtitle:
-      "Music, dance and drama help learners discover confidence and identity.",
-    buttonText: "Discover Student Life",
-    buttonLink: "/academics#co-curricular",
-  },
-  {
-    id: 5,
-    imageUrl: "/uploads/hero-initial/05-kazinga-channel.jpg",
-    altText: "Students during a geography field study",
-    mediaType: "image",
-    title: "Geography in Action",
-    subtitle:
-      "Field studies strengthen research, teamwork and environmental awareness.",
-    buttonText: "Explore Academics",
-    buttonLink: "/academics",
-  },
-  {
-    id: 6,
-    imageUrl: "/uploads/hero-initial/06-old-students.jpg",
-    altText: "Members of the old students team",
-    mediaType: "image",
-    title: "A Strong School Community",
-    subtitle:
-      "Past and present learners remain connected through friendship and service.",
-    buttonText: "About Our School",
-    buttonLink: "/about",
-  },
-];
 
 
 const academicLife = [
@@ -107,12 +40,19 @@ const academicLife = [
 ];
 
 export default async function HomePage() {
-  const [websiteSettings, contact] = await Promise.all([
+  const [websiteSettings, contact, heroSlides] = await Promise.all([
     prisma.websiteSettings.findUnique({
       where: { id: 1 },
     }),
     prisma.contactSettings.findUnique({
       where: { id: 1 },
+    }),
+    prisma.heroSlide.findMany({
+      where: { isPublished: true },
+      orderBy: [
+        { displayOrder: "asc" },
+        { createdAt: "asc" },
+      ],
     }),
   ]);
 
@@ -126,7 +66,7 @@ const emails = contact
   ? (JSON.parse(contact.emails) as string[])
   : [];
 
-const email = emails[0] || "info@stmarysmanja.sc.ug";
+const email = emails[0] || "stmarysmanjasecondaryschool2@gmail.com";
 
 const schoolName =
   websiteSettings?.schoolName || "St Mary's Secondary School-Manja";

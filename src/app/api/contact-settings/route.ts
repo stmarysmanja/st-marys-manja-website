@@ -11,14 +11,14 @@ export async function GET() {
         id: 1,
         location: "Manja, Uganda",
         phones: JSON.stringify(["+256 700 240 640"]),
-        emails: JSON.stringify(["info@stmarysmanja.sc.ug"]),
-        weekdays: "Monday – Friday: 8:00 AM – 5:00 PM",
-        saturday: "Saturday: 9:00 AM – 1:00 PM",
+        emails: JSON.stringify(["stmarysmanjasecondaryschool2@gmail.com"]),
+        weekdays: "Monday â€“ Friday: 8:00 AM â€“ 5:00 PM",
+        saturday: "Saturday: 9:00 AM â€“ 1:00 PM",
         sunday: "Sunday: Closed",
         visitText:
           "We warmly welcome prospective parents and students to visit our school. Please contact the Admissions Office in advance to schedule a tour.",
         directionsText:
-          "St. Mary's Secondary School – Manja is easily accessible from the main road. Contact the school office for detailed directions.",
+          "St. Mary's Secondary School â€“ Manja is easily accessible from the main road. Contact the school office for detailed directions.",
         whatsappNumber: "256700240640",
         mapUrl:
           "https://maps.google.com/maps?q=Manja%20Secondary%20School%20Uganda&t=&z=13&ie=UTF8&iwloc=&output=embed",
