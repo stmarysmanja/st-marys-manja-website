@@ -220,7 +220,7 @@ const location =
                 className="mt-4 text-4xl font-bold text-[#08296f] md:text-5xl"
                 style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
               >
-                Learning for Excellence and Responsible Citizenship
+                {websiteSettings?.tagline || "Excellence & Virtue"}
               </h2>
 
               <p className="mt-6 text-lg leading-8 text-slate-600">
