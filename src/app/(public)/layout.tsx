@@ -33,16 +33,23 @@ export default async function PublicLayout({
   const emails = parseList(contactSettings?.emails);
 
   const schoolName =
-    websiteSettings?.schoolName || "St Mary's Secondary School-Manja";
+    websiteSettings?.schoolName?.trim() ||
+    "St Mary's Secondary School-Manja";
 
   const phone =
-    phones[0] || "+256 700 240 640";
+    phones[0]?.trim() ||
+    websiteSettings?.phone?.trim() ||
+    "+256 700 240 640";
 
   const email =
-    emails[0] || "info@stmarysmanja.sc.ug";
+    emails[0]?.trim() ||
+    websiteSettings?.email?.trim() ||
+    "stmarysmanjasecondaryschool2@gmail.com";
 
   const location =
-    contactSettings?.location || "Manja, Uganda";
+    contactSettings?.location?.trim() ||
+    websiteSettings?.location?.trim() ||
+    "Manja, Uganda";
 
   return (
     <>

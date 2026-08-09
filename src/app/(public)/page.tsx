@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import HomeHero from "@/components/home/HomeHero";
-import PublicHeader from "@/components/layout/PublicHeader";
-import PublicFooter from "@/components/layout/PublicFooter";
 
 export const dynamic = "force-dynamic";
 
@@ -181,13 +179,7 @@ const location =
   ];
   return (
     <>
-      <PublicHeader
-        schoolName={schoolName}
-        phone={phone}
-        email={email}
-      />
-
-      <main>
+<main>
         <HomeHero
           slides={heroSlides}
           heroTitle={heroTitle}
@@ -396,13 +388,6 @@ const location =
           </div>
         </section>
       </main>
-
-      <PublicFooter
-        schoolName={schoolName}
-        location={location}
-        phone={phone}
-        email={email}
-      />
-    </>
+</>
   );
 }
