@@ -6,41 +6,9 @@ export const dynamic = "force-dynamic";
 
 
 
-const academicLife = [
-  {
-    title: "Educational Tours",
-    text: "Students connect classroom learning with real industries and communities.",
-    image: "/uploads/hero-initial/01-welcome-tour.jpg",
-  },
-  {
-    title: "Tea Factory Study",
-    text: "Practical exposure helps learners understand production and agriculture.",
-    image: "/uploads/hero-initial/02-tea-factory.jpg",
-  },
-  {
-    title: "Fieldwork",
-    text: "Learners collect information, observe environments and build research skills.",
-    image: "/uploads/hero-initial/03-fieldwork.jpg",
-  },
-  {
-    title: "Music, Dance and Drama",
-    text: "Creative activities develop confidence, teamwork and cultural identity.",
-    image: "/uploads/hero-initial/04-mdd-culture.jpg",
-  },
-  {
-    title: "Geography Studies",
-    text: "Field studies strengthen environmental awareness and practical knowledge.",
-    image: "/uploads/hero-initial/05-kazinga-channel.jpg",
-  },
-  {
-    title: "Old Students Community",
-    text: "Our alumni remain connected to the school through friendship and service.",
-    image: "/uploads/hero-initial/06-old-students.jpg",
-  },
-];
 
 export default async function HomePage() {
-  const [websiteSettings, contact, heroSlides] = await Promise.all([
+  const [websiteSettings, contact, heroSlides, academicLife] = await Promise.all([
     prisma.websiteSettings.findUnique({
       where: { id: 1 },
     }),
@@ -54,12 +22,28 @@ export default async function HomePage() {
         { createdAt: "asc" },
       ],
     }),
+    prisma.academicLifeItem.findMany({
+      where: { isPublished: true },
+      orderBy: [
+        { displayOrder: "asc" },
+        { createdAt: "asc" },
+      ],
+      take: 6,
+    }),
     prisma.heroSlide.findMany({
       where: { isPublished: true },
       orderBy: [
         { displayOrder: "asc" },
         { createdAt: "asc" },
       ],
+    }),
+    prisma.academicLifeItem.findMany({
+      where: { isPublished: true },
+      orderBy: [
+        { displayOrder: "asc" },
+        { createdAt: "asc" },
+      ],
+      take: 6,
     }),
   ]);
 
@@ -235,11 +219,23 @@ const location =
               </Link>
             </div>
 
-            <img
-              src="/uploads/hero-initial/03-fieldwork.jpg"
-              alt="Students learning during fieldwork"
-              className="h-[480px] w-full rounded-[32px] object-cover shadow-2xl"
-            />
+            {websiteSettings?.introductionMediaType === "video" ? (
+          <video
+            src={websiteSettings?.introductionImage || ""}
+            autoPlay
+            muted
+            loop
+            playsInline
+            controls
+            className="h-[480px] w-full rounded-[32px] object-cover shadow-2xl"
+          />
+        ) : (
+          <img
+            src={websiteSettings?.introductionImage || "/Filed work.jpg"}
+            alt={websiteSettings?.introductionTitle || "St Mary's Secondary School-Manja"}
+            className="h-[480px] w-full rounded-[32px] object-cover shadow-2xl"
+          />
+        )}
           </div>
         </section>
 
@@ -271,7 +267,7 @@ const location =
                 >
                   <div className="h-64 overflow-hidden">
                     <img
-                      src={item.image}
+                      src={item.mediaUrl}
                       alt={item.title}
                       className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                     />
@@ -283,7 +279,7 @@ const location =
                     </h3>
 
                     <p className="mt-3 leading-7 text-slate-600">
-                      {item.text}
+                      {item.description}
                     </p>
                   </div>
                 </article>
