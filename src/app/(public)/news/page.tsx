@@ -4,28 +4,52 @@ import { prisma } from "@/lib/prisma";
 export const dynamic = "force-dynamic";
 
 export default async function NewsPage() {
-  const articles = await prisma.newsArticle.findMany({
-    where: {
-      isPublished: true,
-    },
-    orderBy: [
-      { isPinned: "desc" },
-      { publishedAt: "desc" },
-      { createdAt: "desc" },
-    ],
-  });
+  const [settings, articles] = await Promise.all([
+    prisma.newsSettings.upsert({
+      where: { id: 1 },
+      update: {},
+      create: {
+        id: 1,
+        eyebrow: "School Updates",
+        title: "News & Announcements",
+        description:
+          "Follow the latest academic, sports, events and school community updates.",
+        emptyTitle: "No published news yet",
+        emptyText: "Published school updates will appear here.",
+        pinnedLabel: "Pinned",
+        readMoreText: "Read More",
+        backText: "Back to News",
+      },
+    }),
+
+    prisma.newsArticle.findMany({
+      where: {
+        isPublished: true,
+      },
+      orderBy: [
+        { isPinned: "desc" },
+        { publishedAt: "desc" },
+        { createdAt: "desc" },
+      ],
+    }),
+  ]);
 
   return (
     <main className="min-h-screen bg-slate-50">
-      <section className="bg-blue-950 px-4 py-20 text-center text-white">
-        <p className="text-xs font-bold uppercase tracking-[0.22em] text-sky-300">
-          School Updates
+      <section className="bg-gradient-to-br from-[#061d53] via-[#08296f] to-[#2453d4] px-4 py-20 text-center text-white">
+        <p className="text-xs font-black uppercase tracking-[0.28em] text-blue-200">
+          {settings.eyebrow}
         </p>
-        <h1 className="mt-4 text-4xl font-extrabold md:text-6xl">
-          News & Announcements
+
+        <h1
+          className="mt-4 text-4xl font-extrabold md:text-6xl"
+          style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+        >
+          {settings.title}
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-slate-300">
-          Follow the latest academic, sports, events and school community updates.
+
+        <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-blue-100">
+          {settings.description}
         </p>
       </section>
 
@@ -33,10 +57,11 @@ export default async function NewsPage() {
         {articles.length === 0 ? (
           <div className="rounded-3xl bg-white p-12 text-center shadow-sm">
             <h2 className="text-2xl font-extrabold text-blue-950">
-              No published news yet
+              {settings.emptyTitle}
             </h2>
+
             <p className="mt-3 text-slate-600">
-              Published school updates will appear here.
+              {settings.emptyText}
             </p>
           </div>
         ) : (
@@ -72,7 +97,7 @@ export default async function NewsPage() {
 
                   {article.isPinned && (
                     <span className="absolute left-4 top-4 rounded-full bg-amber-400 px-3 py-1 text-xs font-extrabold text-blue-950">
-                      Pinned
+                      {settings.pinnedLabel}
                     </span>
                   )}
                 </div>
@@ -92,6 +117,7 @@ export default async function NewsPage() {
 
                   <div className="mt-5 flex items-center justify-between gap-4 text-xs font-semibold text-slate-400">
                     <span>{article.author}</span>
+
                     <span>
                       {new Date(
                         article.publishedAt || article.createdAt
@@ -103,7 +129,7 @@ export default async function NewsPage() {
                     href={`/news/${article.slug}`}
                     className="mt-6 inline-flex rounded-xl bg-blue-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-800"
                   >
-                    Read More →
+                    {settings.readMoreText} →
                   </Link>
                 </div>
               </article>

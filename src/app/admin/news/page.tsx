@@ -9,6 +9,17 @@ import {
   useState,
 } from "react";
 
+
+interface NewsSettings {
+  eyebrow: string;
+  title: string;
+  description: string;
+  emptyTitle: string;
+  emptyText: string;
+  pinnedLabel: string;
+  readMoreText: string;
+  backText: string;
+}
 interface NewsArticle {
   id: number;
   title: string;
@@ -65,6 +76,9 @@ const defaultCategories = [
 
 export default function NewsManagementPage() {
   const [articles, setArticles] = useState<NewsArticle[]>([]);
+  const [newsSettings, setNewsSettings] =
+    useState<NewsSettings | null>(null);
+  const [savingSettings, setSavingSettings] = useState(false);
   const [form, setForm] = useState<NewsForm>(emptyForm);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [search, setSearch] = useState("");
@@ -107,6 +121,75 @@ export default function NewsManagementPage() {
     loadArticles();
   }, [loadArticles]);
 
+
+  const loadNewsSettings = useCallback(async () => {
+    try {
+      const response = await fetch("/api/news-settings", {
+        cache: "no-store",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Unable to load News page settings."
+        );
+      }
+
+      setNewsSettings(data);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to load News page settings."
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    loadNewsSettings();
+  }, [loadNewsSettings]);
+
+  async function saveNewsSettings(
+    event: FormEvent<HTMLFormElement>
+  ) {
+    event.preventDefault();
+
+    if (!newsSettings) return;
+
+    try {
+      setSavingSettings(true);
+      setMessage("");
+      setError("");
+
+      const response = await fetch("/api/news-settings", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newsSettings),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Unable to save News page settings."
+        );
+      }
+
+      setNewsSettings(data);
+      setMessage("News page settings saved.");
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to save News page settings."
+      );
+    } finally {
+      setSavingSettings(false);
+    }
+  }
   const categories = useMemo(() => {
     const used = articles.map((article) => article.category);
     return ["All", ...Array.from(new Set([...defaultCategories, ...used]))];
@@ -356,6 +439,133 @@ export default function NewsManagementPage() {
         </p>
       </div>
 
+
+      {newsSettings && (
+        <form
+          onSubmit={saveNewsSettings}
+          className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8"
+        >
+          <div className="flex flex-col gap-4 border-b border-slate-200 pb-5 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+                Public Website
+              </p>
+
+              <h2 className="mt-2 text-2xl font-extrabold text-blue-950">
+                News Public Page Content
+              </h2>
+
+              <p className="mt-2 text-sm text-slate-500">
+                Edit the public News page headings, labels and messages.
+              </p>
+            </div>
+
+            <button
+              type="submit"
+              disabled={savingSettings}
+              className="rounded-xl bg-green-600 px-6 py-3 font-extrabold text-white disabled:opacity-60"
+            >
+              {savingSettings ? "Saving..." : "Save News Page"}
+            </button>
+          </div>
+
+          <div className="mt-6 grid gap-5 lg:grid-cols-2">
+            <Field
+              label="Small heading"
+              value={newsSettings.eyebrow}
+              onChange={(value) =>
+                setNewsSettings({
+                  ...newsSettings,
+                  eyebrow: value,
+                })
+              }
+            />
+
+            <Field
+              label="Main heading"
+              value={newsSettings.title}
+              onChange={(value) =>
+                setNewsSettings({
+                  ...newsSettings,
+                  title: value,
+                })
+              }
+            />
+
+            <div className="lg:col-span-2">
+              <TextArea
+                label="News page description"
+                value={newsSettings.description}
+                rows={4}
+                onChange={(value) =>
+                  setNewsSettings({
+                    ...newsSettings,
+                    description: value,
+                  })
+                }
+              />
+            </div>
+
+            <Field
+              label="Empty News title"
+              value={newsSettings.emptyTitle}
+              onChange={(value) =>
+                setNewsSettings({
+                  ...newsSettings,
+                  emptyTitle: value,
+                })
+              }
+            />
+
+            <div className="lg:col-span-2">
+              <TextArea
+                label="Empty News message"
+                value={newsSettings.emptyText}
+                rows={3}
+                onChange={(value) =>
+                  setNewsSettings({
+                    ...newsSettings,
+                    emptyText: value,
+                  })
+                }
+              />
+            </div>
+
+            <Field
+              label="Pinned label"
+              value={newsSettings.pinnedLabel}
+              onChange={(value) =>
+                setNewsSettings({
+                  ...newsSettings,
+                  pinnedLabel: value,
+                })
+              }
+            />
+
+            <Field
+              label="Read more button text"
+              value={newsSettings.readMoreText}
+              onChange={(value) =>
+                setNewsSettings({
+                  ...newsSettings,
+                  readMoreText: value,
+                })
+              }
+            />
+
+            <Field
+              label="Back to News text"
+              value={newsSettings.backText}
+              onChange={(value) =>
+                setNewsSettings({
+                  ...newsSettings,
+                  backText: value,
+                })
+              }
+            />
+          </div>
+        </form>
+      )}
       <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard label="Total Articles" value={counts.total} />
         <StatCard label="Published" value={counts.published} />
@@ -654,7 +864,7 @@ export default function NewsManagementPage() {
                       </p>
 
                       <p className="mt-2 text-xs font-semibold text-slate-400">
-                        {article.author} ·{" "}
+                        {article.author} Â·{" "}
                         {new Date(article.createdAt).toLocaleDateString()}
                       </p>
                     </div>

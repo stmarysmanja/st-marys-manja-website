@@ -268,3 +268,17 @@ model LeadershipSettings {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model NewsSettings {
+  id            Int      @id @default(1)
+  eyebrow       String   @default("School Updates")
+  title         String   @default("News & Announcements")
+  description   String   @default("Follow the latest academic, sports, events and school community updates.")
+  emptyTitle    String   @default("No published news yet")
+  emptyText     String   @default("Published school updates will appear here.")
+  pinnedLabel   String   @default("Pinned")
+  readMoreText  String   @default("Read More")
+  backText      String   @default("Back to News")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
