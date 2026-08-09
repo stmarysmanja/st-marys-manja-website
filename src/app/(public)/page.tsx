@@ -54,6 +54,13 @@ export default async function HomePage() {
         { createdAt: "asc" },
       ],
     }),
+    prisma.heroSlide.findMany({
+      where: { isPublished: true },
+      orderBy: [
+        { displayOrder: "asc" },
+        { createdAt: "asc" },
+      ],
+    }),
   ]);
 
   const phones = contact
