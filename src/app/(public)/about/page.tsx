@@ -4,11 +4,50 @@ import { prisma } from "@/lib/prisma";
 export const dynamic = "force-dynamic";
 
 export default async function AboutPage() {
-  const settings = await prisma.websiteSettings.upsert({
-    where: { id: 1 },
-    update: {},
-    create: { id: 1 },
-  });
+  const [settings, aboutSettings] = await Promise.all([
+    prisma.websiteSettings.findUnique({
+      where: { id: 1 },
+    }),
+
+    prisma.aboutSettings.upsert({
+      where: { id: 1 },
+      update: {},
+      create: {
+        id: 1,
+        heroEyebrow: "About Our School",
+        heroTitle: "St. Mary's Secondary School-Manja",
+        heroDescription:
+          "Learn more about our school, our purpose, values and commitment to student development.",
+        welcomeEyebrow: "Welcome",
+        mottoLabel: "Our Motto",
+        missionLabel: "Our Mission",
+        visionLabel: "Our Vision",
+        valuesEyebrow: "What Guides Us",
+        valuesTitle: "Our Core Values",
+        valuesDescription:
+          "The principles that guide our school community and the development of our learners.",
+        governanceEyebrow: "School Governance",
+        governanceTitle: "Board of Governors",
+        governanceDescription:
+          "Our school is guided by committed leaders who support good governance, accountability and educational excellence.",
+        anthemEyebrow: "Our Identity",
+        anthemTitle: "School Anthem",
+        anthemText:
+          "Our school anthem reflects our identity, values, unity and commitment to excellence.",
+        ctaTitle: "Join Our School Community",
+        ctaDescription:
+          "Begin your application or contact the school office for more information.",
+        ctaPrimaryText: "Apply Now",
+        ctaPrimaryLink: "/admissions",
+        ctaSecondaryText: "Contact Us",
+        ctaSecondaryLink: "/contact",
+      },
+    }),
+  ]);
+
+  if (!settings) {
+    return null;
+  }
 
   const coreValues = settings.coreValues
     .split(",")
@@ -16,19 +55,21 @@ export default async function AboutPage() {
     .filter(Boolean);
 
   return (
-    <main className="min-h-screen bg-slate-50">
-      <section className="bg-blue-950 px-4 py-20 text-center text-white">
-        <p className="text-xs font-bold uppercase tracking-[0.22em] text-sky-300">
-          Discover Our School
+    <main className="min-h-screen bg-white">
+      <section className="bg-gradient-to-br from-[#061d53] via-[#08296f] to-[#2453d4] px-4 py-20 text-center text-white">
+        <p className="text-xs font-black uppercase tracking-[0.28em] text-blue-200">
+          {aboutSettings.heroEyebrow}
         </p>
 
-        <h1 className="mt-4 text-4xl font-extrabold md:text-6xl">
-          About Us
+        <h1
+          className="mt-4 text-4xl font-extrabold md:text-6xl"
+          style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+        >
+          {aboutSettings.heroTitle}
         </h1>
 
         <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-300">
-          Learn more about {settings.schoolName}, our purpose, values and
-          commitment to student development.
+          {aboutSettings.heroDescription}
         </p>
       </section>
 
@@ -54,7 +95,7 @@ export default async function AboutPage() {
 
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-blue-600">
-              Welcome
+              {aboutSettings.welcomeEyebrow}
             </p>
 
             <h2 className="mt-3 text-3xl font-extrabold text-blue-950 md:text-4xl">
@@ -67,48 +108,38 @@ export default async function AboutPage() {
 
             <div className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6">
               <p className="text-xs font-bold uppercase tracking-wide text-amber-700">
-                Our Motto
+                {aboutSettings.mottoLabel}
               </p>
 
               <p className="mt-2 text-2xl font-extrabold italic text-blue-950">
-                “{settings.motto}”
+                &ldquo;{settings.motto}&rdquo;
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-16">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="grid gap-8 lg:grid-cols-2">
-            <article className="rounded-3xl border border-blue-100 bg-slate-50 p-8 shadow-sm md:p-10">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-700 text-2xl text-white">
-                🎯
-              </div>
+      <section id="mission" className="bg-slate-50 py-16">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 lg:grid-cols-2">
+          <article className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+            <h2 className="text-3xl font-extrabold text-blue-950">
+              {aboutSettings.missionLabel}
+            </h2>
 
-              <h2 className="mt-5 text-3xl font-extrabold text-blue-950">
-                Our Mission
-              </h2>
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              {settings.mission}
+            </p>
+          </article>
 
-              <p className="mt-5 text-lg leading-8 text-slate-600">
-                {settings.mission}
-              </p>
-            </article>
+          <article className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+            <h2 className="text-3xl font-extrabold text-blue-950">
+              {aboutSettings.visionLabel}
+            </h2>
 
-            <article className="rounded-3xl border border-blue-100 bg-slate-50 p-8 shadow-sm md:p-10">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-600 text-2xl text-white">
-                🌍
-              </div>
-
-              <h2 className="mt-5 text-3xl font-extrabold text-blue-950">
-                Our Vision
-              </h2>
-
-              <p className="mt-5 text-lg leading-8 text-slate-600">
-                {settings.vision}
-              </p>
-            </article>
-          </div>
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              {settings.vision}
+            </p>
+          </article>
         </div>
       </section>
 
@@ -116,12 +147,16 @@ export default async function AboutPage() {
         <div className="mx-auto max-w-7xl px-4">
           <div className="text-center">
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-blue-600">
-              What Guides Us
+              {aboutSettings.valuesEyebrow}
             </p>
 
             <h2 className="mt-3 text-3xl font-extrabold text-blue-950 md:text-4xl">
-              Our Core Values
+              {aboutSettings.valuesTitle}
             </h2>
+
+            <p className="mx-auto mt-4 max-w-3xl text-slate-600">
+              {aboutSettings.valuesDescription}
+            </p>
           </div>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -143,29 +178,60 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      <section id="governance" className="bg-white py-16">
+        <div className="mx-auto max-w-5xl px-4 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-blue-600">
+            {aboutSettings.governanceEyebrow}
+          </p>
+
+          <h2 className="mt-3 text-3xl font-extrabold text-blue-950 md:text-4xl">
+            {aboutSettings.governanceTitle}
+          </h2>
+
+          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+            {aboutSettings.governanceDescription}
+          </p>
+        </div>
+      </section>
+
+      <section id="anthem" className="bg-slate-50 py-16">
+        <div className="mx-auto max-w-5xl px-4 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-blue-600">
+            {aboutSettings.anthemEyebrow}
+          </p>
+
+          <h2 className="mt-3 text-3xl font-extrabold text-blue-950 md:text-4xl">
+            {aboutSettings.anthemTitle}
+          </h2>
+
+          <p className="mx-auto mt-5 max-w-3xl whitespace-pre-line text-lg leading-8 text-slate-600">
+            {aboutSettings.anthemText}
+          </p>
+        </div>
+      </section>
+
       <section className="bg-blue-950 px-4 py-16 text-center text-white">
         <h2 className="text-3xl font-extrabold md:text-4xl">
-          Join Our School Community
+          {aboutSettings.ctaTitle}
         </h2>
 
         <p className="mx-auto mt-4 max-w-2xl text-slate-300">
-          Begin your application or contact the school office for more
-          information.
+          {aboutSettings.ctaDescription}
         </p>
 
         <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
           <Link
-            href={settings.admissionsLink}
+            href={aboutSettings.ctaPrimaryLink}
             className="rounded-xl bg-amber-400 px-7 py-3.5 font-extrabold text-blue-950 transition hover:bg-amber-300"
           >
-            {settings.admissionsText}
+            {aboutSettings.ctaPrimaryText}
           </Link>
 
           <Link
-            href="/contact"
+            href={aboutSettings.ctaSecondaryLink}
             className="rounded-xl border border-white/30 bg-white/10 px-7 py-3.5 font-extrabold text-white transition hover:bg-white hover:text-blue-950"
           >
-            Contact Us
+            {aboutSettings.ctaSecondaryText}
           </Link>
         </div>
       </section>

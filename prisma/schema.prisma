@@ -282,3 +282,38 @@ model NewsSettings {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
+
+model AboutSettings {
+  id                     Int      @id @default(1)
+
+  heroEyebrow            String   @default("About Our School")
+  heroTitle              String   @default("St. Mary's Secondary School-Manja")
+  heroDescription        String   @default("Learn more about our school, our purpose, values and commitment to student development.")
+
+  welcomeEyebrow         String   @default("Welcome")
+  mottoLabel             String   @default("Our Motto")
+  missionLabel           String   @default("Our Mission")
+  visionLabel            String   @default("Our Vision")
+
+  valuesEyebrow          String   @default("What Guides Us")
+  valuesTitle            String   @default("Our Core Values")
+  valuesDescription      String   @default("The principles that guide our school community and the development of our learners.")
+
+  governanceEyebrow      String   @default("School Governance")
+  governanceTitle        String   @default("Board of Governors")
+  governanceDescription  String   @default("Our school is guided by committed leaders who support good governance, accountability and educational excellence.")
+
+  anthemEyebrow          String   @default("Our Identity")
+  anthemTitle            String   @default("School Anthem")
+  anthemText             String   @default("Our school anthem reflects our identity, values, unity and commitment to excellence.")
+
+  ctaTitle               String   @default("Join Our School Community")
+  ctaDescription         String   @default("Begin your application or contact the school office for more information.")
+  ctaPrimaryText         String   @default("Apply Now")
+  ctaPrimaryLink         String   @default("/admissions")
+  ctaSecondaryText       String   @default("Contact Us")
+  ctaSecondaryLink       String   @default("/contact")
+
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+}
