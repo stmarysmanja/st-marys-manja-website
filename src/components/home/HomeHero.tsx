@@ -24,6 +24,10 @@ interface Props {
   admissionsText: string;
   admissionsLink: string;
   whatsappNumber: string;
+  badgeUrl: string;
+  badgeAlt: string;
+  secondaryButtonText: string;
+  secondaryButtonLink: string;
 }
 
 export default function HomeHero({
@@ -34,6 +38,10 @@ export default function HomeHero({
   admissionsText,
   admissionsLink,
   whatsappNumber,
+  badgeUrl,
+  badgeAlt,
+  secondaryButtonText,
+  secondaryButtonLink,
 }: Props) {
   const [current, setCurrent] = useState(0);
   const [playing, setPlaying] = useState(true);
@@ -129,8 +137,8 @@ export default function HomeHero({
           className="relative mx-auto mb-6 h-32 w-24 animate-[heroFadeDown_.8s_ease-out] overflow-hidden rounded-2xl bg-white shadow-2xl ring-4 ring-white/25 lg:mx-0"
         >
           <Image
-            src="/branding/school-badge.png"
-            alt="School badge"
+            src={badgeUrl || "/branding/school-badge.png"}
+            alt={badgeAlt || "School badge"}
             fill
             priority
             sizes="96px"
@@ -167,13 +175,13 @@ export default function HomeHero({
             href={buttonLink}
             className="rounded-xl bg-white px-7 py-4 font-extrabold text-[#08296f] shadow-xl transition hover:-translate-y-1 hover:bg-blue-100"
           >
-            {buttonText} →
+            {buttonText}
           </Link>
           <Link
-            href="/academics"
+            href={secondaryButtonLink || "/academics"}
             className="rounded-xl border border-white/35 bg-white/10 px-7 py-4 font-extrabold text-white backdrop-blur-md transition hover:-translate-y-1 hover:bg-white hover:text-[#08296f]"
           >
-            Explore Our School
+            {secondaryButtonText || "Explore Our School"}
           </Link>
         </div>
       </div>

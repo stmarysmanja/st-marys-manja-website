@@ -8,50 +8,44 @@ export const dynamic = "force-dynamic";
 
 
 export default async function HomePage() {
-  const [websiteSettings, contact, heroSlides, academicLife] = await Promise.all([
-    prisma.websiteSettings.findUnique({
-      where: { id: 1 },
-    }),
-    prisma.contactSettings.findUnique({
-      where: { id: 1 },
-    }),
-    prisma.heroSlide.findMany({
-      where: { isPublished: true },
-      orderBy: [
-        { displayOrder: "asc" },
-        { createdAt: "asc" },
-      ],
-    }),
-    prisma.academicLifeItem.findMany({
-      where: { isPublished: true },
-      orderBy: [
-        { displayOrder: "asc" },
-        { createdAt: "asc" },
-      ],
-      take: 6,
-    }),
-    prisma.heroSlide.findMany({
-      where: { isPublished: true },
-      orderBy: [
-        { displayOrder: "asc" },
-        { createdAt: "asc" },
-      ],
-    }),
-    prisma.academicLifeItem.findMany({
-      where: { isPublished: true },
-      orderBy: [
-        { displayOrder: "asc" },
-        { createdAt: "asc" },
-      ],
-      take: 6,
-    }),
-  ]);
+const [
+  websiteSettings,
+  contact,
+  globalLayoutSettings,
+  heroSlides,
+  academicLife,
+] = await Promise.all([
+  prisma.websiteSettings.findUnique({
+    where: { id: 1 },
+  }),
+  prisma.contactSettings.findUnique({
+    where: { id: 1 },
+  }),
+  prisma.globalLayoutSettings.findUnique({
+    where: { id: 1 },
+  }),
+  prisma.heroSlide.findMany({
+    where: { isPublished: true },
+    orderBy: [
+      { displayOrder: "asc" },
+      { createdAt: "asc" },
+    ],
+  }),
+  prisma.academicLifeItem.findMany({
+    where: { isPublished: true },
+    orderBy: [
+      { displayOrder: "asc" },
+      { createdAt: "asc" },
+    ],
+    take: 6,
+  }),
+]);
 
   const phones = contact
     ? (JSON.parse(contact.phones) as string[])
     : [];
 
-  const phone = phones[0] || "+256 700 240 640";
+  const phone = phones[0] || "0703521380";
 
 const emails = contact
   ? (JSON.parse(contact.emails) as string[])
@@ -78,7 +72,7 @@ const admissionsLink =
   websiteSettings?.admissionsLink || "/admissions";
 
 const whatsappNumber =
-  websiteSettings?.whatsappNumber || "256700240640";
+  websiteSettings?.whatsappNumber || "256703521380";
 
 const location =
   contact?.location || "Manja, Uganda";
@@ -119,6 +113,10 @@ const location =
           admissionsText={admissionsText}
           admissionsLink={admissionsLink}
           whatsappNumber={whatsappNumber}
+        badgeUrl={globalLayoutSettings?.badgeUrl || "/branding/school-badge.png"}
+        badgeAlt={globalLayoutSettings?.badgeAlt || "St. Mary's Secondary School Manja badge"}
+        secondaryButtonText={websiteSettings?.academicLifeButtonText || "Explore Our School"}
+        secondaryButtonLink={websiteSettings?.academicLifeButtonLink || "/academics"}
         />
 
         <section className="relative overflow-hidden bg-slate-50 pb-20">
