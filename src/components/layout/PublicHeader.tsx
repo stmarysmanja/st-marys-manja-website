@@ -403,28 +403,45 @@ function MegaMenu({
   active: boolean;
   children: React.ReactNode;
 }) {
+  const [open, setOpen] = useState(false);
+
   return (
-    <div className="group relative">
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <button
         type="button"
+        onClick={() => setOpen((value) => !value)}
+        aria-expanded={open}
         className={`flex items-center gap-1 rounded-xl px-3 py-3 text-sm font-bold transition ${
-          active
+          active || open
             ? "bg-blue-50 text-[#2453d4]"
-            : "text-slate-700 group-hover:bg-blue-50 group-hover:text-[#2453d4]"
+            : "text-slate-700 hover:bg-blue-50 hover:text-[#2453d4]"
         }`}
       >
         {label}
 
-        <ChevronDown className="h-4 w-4 transition group-hover:rotate-180" />
+        <ChevronDown
+          className={`h-4 w-4 transition duration-300 ${
+            open ? "rotate-180" : ""
+          }`}
+        />
       </button>
 
-      <div className="invisible absolute left-1/2 top-full -translate-x-1/2 translate-y-3 pt-3 opacity-0 transition duration-300 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+      <div
+        className={`absolute left-1/2 top-full z-[100] -translate-x-1/2 pt-3 transition duration-200 ${
+          open
+            ? "visible translate-y-0 opacity-100"
+            : "invisible translate-y-2 opacity-0"
+        }`}
+      >
         {children}
       </div>
     </div>
   );
 }
-
 function MenuPanel({
   title,
   subtitle,
