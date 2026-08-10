@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "fs/promises";
+﻿import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 import { NextResponse } from "next/server";
 
@@ -18,6 +18,21 @@ const allowedVideoTypes = [
   "video/ogg",
 ];
 
+function getUploadDirectory() {
+  const railwayVolume =
+    process.env.RAILWAY_VOLUME_MOUNT_PATH;
+
+  if (railwayVolume) {
+    return path.join(railwayVolume, "uploads");
+  }
+
+  return path.join(
+    process.cwd(),
+    "public",
+    "uploads"
+  );
+}
+
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
@@ -30,8 +45,11 @@ export async function POST(request: Request) {
       );
     }
 
-    const isImage = allowedImageTypes.includes(uploadedFile.type);
-    const isVideo = allowedVideoTypes.includes(uploadedFile.type);
+    const isImage =
+      allowedImageTypes.includes(uploadedFile.type);
+
+    const isVideo =
+      allowedVideoTypes.includes(uploadedFile.type);
 
     if (!isImage && !isVideo) {
       return NextResponse.json(
@@ -43,7 +61,9 @@ export async function POST(request: Request) {
       );
     }
 
-    const maximumSize = isVideo ? MAX_VIDEO_SIZE : MAX_IMAGE_SIZE;
+    const maximumSize = isVideo
+      ? MAX_VIDEO_SIZE
+      : MAX_IMAGE_SIZE;
 
     if (uploadedFile.size > maximumSize) {
       return NextResponse.json(
@@ -56,22 +76,28 @@ export async function POST(request: Request) {
       );
     }
 
-    const extension = path.extname(uploadedFile.name).toLowerCase();
+    const extension = path
+      .extname(uploadedFile.name)
+      .toLowerCase();
+
     const originalName = path
       .basename(uploadedFile.name, extension)
       .replace(/[^a-zA-Z0-9-_]/g, "-")
       .replace(/-+/g, "-");
 
-    const uniqueName = `${Date.now()}-${originalName}${extension}`;
-    const uploadDirectory = path.join(
-      process.cwd(),
-      "public",
-      "uploads"
-    );
+    const uniqueName =
+      `${Date.now()}-${originalName}${extension}`;
 
-    await mkdir(uploadDirectory, { recursive: true });
+    const uploadDirectory =
+      getUploadDirectory();
 
-    const bytes = await uploadedFile.arrayBuffer();
+    await mkdir(uploadDirectory, {
+      recursive: true,
+    });
+
+    const bytes =
+      await uploadedFile.arrayBuffer();
+
     const buffer = Buffer.from(bytes);
 
     await writeFile(
@@ -80,7 +106,7 @@ export async function POST(request: Request) {
     );
 
     return NextResponse.json({
-      url: `/uploads/${uniqueName}`,
+      url: `/media/${uniqueName}`,
       mediaType: isVideo ? "video" : "image",
       fileName: uniqueName,
     });
@@ -88,7 +114,10 @@ export async function POST(request: Request) {
     console.error("Media upload error:", error);
 
     return NextResponse.json(
-      { message: "Unable to upload the selected file." },
+      {
+        message:
+          "Unable to upload the selected file.",
+      },
       { status: 500 }
     );
   }
