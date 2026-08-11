@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 export const dynamic = "force-dynamic";
 
 export default async function AboutPage() {
-  const [settings, aboutSettings] = await Promise.all([
+  const [settings, aboutSettings, boardGovernors] = await Promise.all([
     prisma.websiteSettings.findUnique({
       where: { id: 1 },
     }),
@@ -42,6 +42,15 @@ export default async function AboutPage() {
         ctaSecondaryText: "Contact Us",
         ctaSecondaryLink: "/contact",
       },
+    }),
+    prisma.boardGovernor.findMany({
+      where: {
+        isPublished: true,
+      },
+      orderBy: [
+        { displayOrder: "asc" },
+        { createdAt: "asc" },
+      ],
     }),
   ]);
 
@@ -179,20 +188,63 @@ export default async function AboutPage() {
       </section>
 
       <section id="governance" className="bg-white py-16">
-        <div className="mx-auto max-w-5xl px-4 text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-blue-600">
-            {aboutSettings.governanceEyebrow}
-          </p>
+  <div className="mx-auto max-w-7xl px-4">
+    <div className="text-center">
+      <p className="text-xs font-bold uppercase tracking-[0.22em] text-blue-600">
+        {aboutSettings.governanceEyebrow}
+      </p>
 
-          <h2 className="mt-3 text-3xl font-extrabold text-blue-950 md:text-4xl">
-            {aboutSettings.governanceTitle}
-          </h2>
+      <h2 className="mt-3 text-3xl font-extrabold text-blue-950 md:text-4xl">
+        {aboutSettings.governanceTitle}
+      </h2>
 
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-            {aboutSettings.governanceDescription}
-          </p>
-        </div>
-      </section>
+      <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+        {aboutSettings.governanceDescription}
+      </p>
+    </div>
+
+    {boardGovernors.length > 0 && (
+      <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {boardGovernors.map((member) => (
+          <article
+            key={member.id}
+            className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl"
+          >
+            <div className="aspect-[4/5] overflow-hidden bg-slate-100">
+              {member.photoUrl ? (
+                <img
+                  src={member.photoUrl}
+                  alt={member.name}
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+              ) : (
+                <div className="flex h-full items-center justify-center bg-gradient-to-br from-blue-950 to-blue-700 text-4xl font-black text-white">
+                  SM
+                </div>
+              )}
+            </div>
+
+            <div className="p-6 text-center">
+              <h3 className="text-xl font-extrabold text-blue-950">
+                {member.name}
+              </h3>
+
+              <p className="mt-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-600">
+                {member.position}
+              </p>
+
+              {member.description && (
+                <p className="mt-4 text-sm leading-6 text-slate-600">
+                  {member.description}
+                </p>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
 
       <section id="anthem" className="bg-slate-50 py-16">
         <div className="mx-auto max-w-5xl px-4 text-center">

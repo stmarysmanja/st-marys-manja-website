@@ -365,3 +365,15 @@ model GlobalLayoutSettings {
   createdAt                 DateTime @default(now())
   updatedAt                 DateTime @updatedAt
 }
+
+model BoardGovernor {
+  id           Int      @id @default(autoincrement())
+  name         String
+  position     String
+  photoUrl     String?
+  description  String?
+  displayOrder Int      @default(0)
+  isPublished  Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

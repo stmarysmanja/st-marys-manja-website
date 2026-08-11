@@ -13,6 +13,7 @@ const navigation = [
     { href: "/admin/website-settings", label: "Website Settings" },
   { href: "/admin/global-layout", label: "Header & Footer" },
   { href: "/admin/leadership", label: "Leadership" },
+{ href: "/admin/board-governors", label: "Board of Governors" },
   { href: "/admin/news", label: "News" },
   { href: "/admin/gallery", label: "Gallery" },
   { href: "/admin/admissions", label: "Admissions" },
