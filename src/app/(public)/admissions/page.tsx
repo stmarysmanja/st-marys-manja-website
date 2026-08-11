@@ -100,7 +100,7 @@ export default function AdmissionsPage() {
                     <div className="inline-flex items-center gap-3 bg-[#142666] border border-blue-400/30 text-slate-200 px-6 py-2.5 rounded-full text-xs md:text-sm shadow-inner">
                         <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
                         <span>
-                            <strong className="font-semibold text-white">{settings?.vacanciesTitle || "Vacancies Open"}</strong>  â€” {settings?.vacanciesText || "We are currently accepting applications for the next intake."}
+                            1
                         </span>
                     </div>
                 </div>
@@ -110,7 +110,7 @@ export default function AdmissionsPage() {
             <section className="max-w-5xl mx-auto px-4 -mt-12 relative z-20 mb-14 grid md:grid-cols-3 gap-6">
                 <div className="bg-white p-7 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-slate-100 text-center flex flex-col items-center">
                     <div className="w-13 h-13 bg-[#0b1b4f] text-white rounded-2xl flex items-center justify-center mb-4 text-xl shadow-md">
-                        Ã¢Å“ÂÃ¯Â¸Â
+                        2
                     </div>
                     <h3 className="font-serif font-bold text-lg text-slate-900 mb-2">{settings?.step1Title || "1. Submit Application"}</h3>
                     <p className="text-xs text-slate-500 leading-relaxed">
@@ -120,7 +120,7 @@ export default function AdmissionsPage() {
 
                 <div className="bg-white p-7 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-slate-100 text-center flex flex-col items-center">
                     <div className="w-13 h-13 bg-[#0b1b4f] text-white rounded-2xl flex items-center justify-center mb-4 text-xl shadow-md">
-                        Ã°Å¸â€œâ€¹
+                        3
                     </div>
                     <h3 className="font-serif font-bold text-lg text-slate-900 mb-2">{settings?.step2Title || "2. Assessment & Review"}</h3>
                     <p className="text-xs text-slate-500 leading-relaxed">
@@ -130,7 +130,7 @@ export default function AdmissionsPage() {
 
                 <div className="bg-white p-7 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-slate-100 text-center flex flex-col items-center">
                     <div className="w-13 h-13 bg-[#0b1b4f] text-white rounded-2xl flex items-center justify-center mb-4 text-xl shadow-md">
-                        Ã°Å¸â€â€
+                        ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ¢â‚¬Â
                     </div>
                     <h3 className="font-serif font-bold text-lg text-slate-900 mb-2">{settings?.step3Title || "3. Admission & Reporting"}</h3>
                     <p className="text-xs text-slate-500 leading-relaxed">
@@ -173,7 +173,7 @@ export default function AdmissionsPage() {
                     {/* Error Banner */}
                     {errorMessage && (
                         <div className="mb-8 p-5 bg-rose-50 border border-rose-400 text-rose-900 rounded-2xl text-sm font-semibold text-center shadow-sm">
-                            Ã¢Å¡Â Ã¯Â¸Â {errorMessage}
+                            ÃƒÂ¢Ã…Â¡Ã‚Â ÃƒÂ¯Ã‚Â¸Ã‚Â {errorMessage}
                         </div>
                     )}
 
@@ -336,7 +336,7 @@ export default function AdmissionsPage() {
                                 ) : (
                                     <>
                                         <span>{settings?.submitButtonText || "Submit Application Form"}</span>
-                                        <span>â†’</span>
+                                        <span>Ã¢â€ â€™</span>
                                     </>
                                 )}
                             </button>
@@ -363,7 +363,7 @@ export default function AdmissionsPage() {
         .map((item: string) => (
             <div key={item} className="flex items-center gap-3">
                 <div className="w-5 h-5 rounded-full border border-slate-400 flex items-center justify-center shrink-0">
-                    âœ“
+                    Ã¢Å“â€œ
                 </div>
                 <span>{item}</span>
             </div>
@@ -375,7 +375,7 @@ export default function AdmissionsPage() {
                 <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
                     <div className="flex items-center gap-5">
                         <div className="w-14 h-14 bg-[#0b1b4f] text-white rounded-2xl flex items-center justify-center text-xl shrink-0 shadow-sm">
-                            Ã°Å¸â€œâ€ž
+                            ÃƒÂ°Ã…Â¸Ã¢â‚¬Å“Ã¢â‚¬Å¾
                         </div>
                         <div>
                             <h4 className="font-serif font-bold text-slate-900 text-lg">{settings?.checklistTitle || "Requirements Checklist (PDF)"}</h4>
