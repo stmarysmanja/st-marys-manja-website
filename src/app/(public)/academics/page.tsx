@@ -137,7 +137,7 @@ export default async function AcademicsPage() {
               {oLevelItems.map((item) => (
                 <li key={item} className="flex gap-3 text-slate-700">
                   <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-800 text-xs font-bold text-white">
-                    ✓
+                    &#10003;
                   </span>
                   {item}
                 </li>
@@ -274,7 +274,7 @@ export default async function AcademicsPage() {
                   </div>
                 </div>
                 <span className="text-xl font-bold text-blue-950 transition group-open:rotate-180">
-                  âŒ„
+                  &#8964;
                 </span>
               </summary>
 
