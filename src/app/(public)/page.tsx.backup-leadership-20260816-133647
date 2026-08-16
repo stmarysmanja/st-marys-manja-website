@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import HomeHero from "@/components/home/HomeHero";
-import LeadershipSection from "@/components/home/LeadershipSection";
 
 export const dynamic = "force-dynamic";
 
@@ -295,8 +294,6 @@ const location =
             </div>
           </div>
         </section>
-
-        <LeadershipSection />
 
         <section className="bg-gradient-to-r from-[#08296f] to-[#2453d4] px-4 py-20 text-center text-white">
           <p className="text-sm font-black uppercase tracking-[0.25em] text-blue-200">
